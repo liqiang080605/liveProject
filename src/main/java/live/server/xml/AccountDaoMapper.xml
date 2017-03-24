@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.server.dao.AccountDao">
+
+	<resultMap id="account" type="live.server.model.Account">
+		<id property="uid" column="uid" />
+		<result property="pwd" column="pwd" />
+		<result property="token" column="token" />
+		<result property="state" column="state" />
+		<result property="user_sig" column="user_sig" />
+		<result property="register_time" column="register_time" />
+		<result property="login_time" column="login_time" />
+		<result property="logout_time" column="logout_time" />
+		<result property="last_request_time" column="last_request_time" />
+	</resultMap>
+
+	<sql id="base_column">
+		uid, pwd, token, state, user_sig, register_time, login_time,
+		logout_time, last_request_time
+	</sql>
+	
+	<insert id="insert">
+	    INSERT INTO
+		t_account(
+		<include refid="base_column" />
+		)
+		VALUES(#{uid}, #{pwd}, #{token}, #{state}, #{user_sig}, #{register_time},
+		#{login_time}, #{logout_time}, #{last_request_time})
+	</insert>
+	
+	<select id="queryById" resultMap="account">
+		select * from t_account where uid = #{id}
+	</select>
+
+</mapper>

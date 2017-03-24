@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%X{requestURIWithQueryString}] %-5p %C.%M(%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Append" value="true" />
+		<param name="file" value="${log.path}/server.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%X{requestURIWithQueryString}] %-5p %C.%M(%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="org.apache">
+		<level value="off" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<logger name="org.mybatis">
+		<level value="off" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<logger name="com.ibatis">
+		<level value="off" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<logger name="java.sql">
+		<level value="off" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="com.jd.jsf">
+		<level value="error" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<root>
+		<priority value="${log.level}" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</log4j:configuration>
