@@ -8,4 +8,6 @@ public interface AccountDao {
 
 	public int insert(Account account);
 
+	public int update(Account account);
+
 }

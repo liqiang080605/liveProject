@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class CommonUtil {
 
+	public static final String SDK_APPID = null;
+
 	public static String md5(String str) {
 		String result = null;
 		try {
@@ -19,6 +21,11 @@ public class CommonUtil {
 			ex.printStackTrace();
 		}
 		return result;
+	}
+
+	public static String createUserSig(String sdkAppid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

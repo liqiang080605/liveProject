@@ -46,4 +46,10 @@ public class RestController {
 		return JsonUtil.mapToJson(resultMap);
 	}
 	
+	@RequestMapping("test")
+	@ResponseBody
+	public String test() {
+		return "test";
+	}
+	
 }

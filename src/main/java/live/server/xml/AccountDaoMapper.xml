@@ -29,7 +29,37 @@
 	</insert>
 	
 	<select id="queryById" resultMap="account">
-		select * from t_account where uid = #{id}
+		select * from t_account where uid = #{uid}
 	</select>
+	
+	<update id="update">
+		update t_account
+		set 1 = 1
+		<if test="pwd != null and pwd != ''">
+			, pwd = #{pwd}
+		</if>
+		<if test="token != null and token != ''">
+			, token = #{token}
+		</if>
+		<if test="state != null and state != ''">
+			, state = #{state}
+		</if>
+		<if test="user_sig != null and user_sig != ''">
+			, user_sig = #{user_sig}
+		</if>
+		<if test="register_time != null and register_time != ''">
+			, register_time = #{register_time}
+		</if>
+		<if test="login_time != null and login_time != ''">
+			, login_time = #{login_time}
+		</if>
+		<if test="logout_time != null and logout_time != ''">
+			, logout_time = #{logout_time}
+		</if>
+		<if test="last_request_time != null and last_request_time != ''">
+			, last_request_time = #{last_request_time}
+		</if>
+		where uid = #{uid}
+	</update>
 
 </mapper>
