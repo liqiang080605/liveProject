@@ -32,12 +32,13 @@
 		select * from t_account where uid = #{uid}
 	</select>
 	
+	<select id="queryByToken" resultMap="account">
+		select * from t_account where token = #{token}
+	</select>
+	
 	<update id="update">
 		update t_account
-		set 1 = 1
-		<if test="pwd != null and pwd != ''">
-			, pwd = #{pwd}
-		</if>
+		set pwd = #{pwd}
 		<if test="token != null and token != ''">
 			, token = #{token}
 		</if>
@@ -60,6 +61,14 @@
 			, last_request_time = #{last_request_time}
 		</if>
 		where uid = #{uid}
+	</update>
+	
+	<update id="logout">
+		UPDATE t_account SET state= 0, token=null
+		<if test="logout_time != null and logout_time != ''">
+			, logout_time = #{logout_time}
+		</if>
+		WHERE token=#{token}
 	</update>
 
 </mapper>

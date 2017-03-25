@@ -15,4 +15,12 @@
        http://www.springframework.org/schema/tx 
        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
+		
+	<bean id="commonUtil" class="live.server.Util.CommonUtil">
+		<property name="SDK_APPID" value="${SDK_APPID}" />
+		<property name="PRIVATE_KEY_PATH" value="${private_key_path}" />
+		<property name="PUBLIC_KEY_PATH" value="${public_key_path}" />
+		<property name="BIZID" value="${BIZID}" />
+		<property name="LIVE_URLS" value="${LIVE_URLS}" />
+	</bean>
 </beans>

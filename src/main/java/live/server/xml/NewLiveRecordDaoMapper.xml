@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.server.dao.NewLiveRecordDao">
+	
+	<resultMap id="room" type="live.server.model.NewLiveRecord">
+		<id property="id" column="id" />
+		<result property="create_time" column="create_time" />
+		<result property="modify_time" column="modify_time" />
+		<result property="appid" column="appid" />
+		<result property="title" column="title" />
+		<result property="cover" column="cover" />
+		<result property="host_uid" column="host_uid" />
+		<result property="av_room_id" column="av_room_id" />
+		<result property="chat_room_id" column="chat_room_id" />
+		<result property="room_type" column="room_type" />
+		<result property="admire_count" column="admire_count" />
+		<result property="longitude" column="longitude" />
+		<result property="latitude" column="latitude" />
+		<result property="address" column="address" />
+		<result property="video_type" column="video_type" />
+		<result property="device" column="device" />
+		<result property="play_url1" column="play_url1" />
+		<result property="play_url2" column="play_url2" />
+		<result property="play_url3" column="play_url3" />
+	</resultMap>
+
+	<sql id="base_column">
+		id, create_time, modify_time, appid, title, cover, host_uid, av_room_id, chat_room_id, room_type,
+		admire_count, longitude, latitude, address, video_type, device, play_url1, play_url2, play_url3
+	</sql>
+	
+	<insert id="replaceInsert">
+	    REPLACE INTO
+		t_new_live_record(
+		<include refid="base_column" />
+		)
+		VALUES(NULL, #{create_time}, #{modify_time}, #{appid}, #{title}, #{cover}, #{host_uid}, #{av_room_id}, #{chat_room_id}, 
+		#{room_type}, #{admire_count}, #{longitude}, #{latitude}, #{address}, #{video_type}, #{device}, #{play_url1}, #{play_url2}, #{play_url3})
+	</insert>
+
+</mapper>

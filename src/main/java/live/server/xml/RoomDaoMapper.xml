@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.server.dao.RoomDao">
+	
+	<resultMap id="room" type="live.server.model.AvRoom">
+		<id property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="aux_md5" column="aux_md5" />
+		<result property="main_md5" column="main_md5" />
+		<result property="last_update_time" column="last_update_time" />
+	</resultMap>
+
+	<sql id="base_column">
+		id, uid, aux_md5, main_md5, last_update_time
+	</sql>
+	
+	<insert id="insert">
+	    INSERT INTO
+		t_av_room(
+		<include refid="base_column" />
+		)
+		VALUES(NULL, #{uid}, #{aux_md5}, #{main_md5}, #{last_update_time})
+	</insert>
+	
+	<select id="queryByUid" resultMap="room">
+		select * from t_av_room where uid = #{uid}
+	</select>
+	
+	<update id="update">
+		update t_av_room
+		set uid = #{uid}
+		<if test="aux_md5 != null and aux_md5 != ''">
+			, aux_md5 = #{aux_md5}
+		</if>
+		<if test="main_md5 != null and main_md5 != ''">
+			, main_md5 = #{main_md5}
+		</if>
+		<if test="last_update_time != null and last_update_time != ''">
+			, last_update_time = #{last_update_time}
+		</if>
+		where id = #{id}
+	</update>
+
+</mapper>

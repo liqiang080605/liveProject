@@ -247,6 +247,43 @@
 			</jdbc_url>
 			<jdbc_username>root</jdbc_username>
 			<jdbc_password>root</jdbc_password>
+			
+			<SDK_APPID>1400027577</SDK_APPID>
+			<private_key_path>/export/data/bin/private_key</private_key_path>
+			<public_key_path>/export/data/bin/public_key</public_key_path>
+			<BIZID>123456</BIZID>
+			<LIVE_URLS>liveplay.myqcloud.com/live/</LIVE_URLS>
+		</properties>
+	</profile>
+	
+	<profile>
+		<id>release</id>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1-beta-1</version>
+					<configuration>
+						<archiveClasses>false</archiveClasses>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+		<properties>
+			<log.path>/export/logs/live/</log.path>
+			<log.level>info</log.level>
+			<jdbc_driver>com.mysql.jdbc.Driver</jdbc_driver>
+			<jdbc_url>jdbc:mysql://115.159.104.229:3306/sxb_db?useUnicode=true<![CDATA[&amp;]]>characterEncoding=utf-8
+			</jdbc_url>
+			<jdbc_username>root</jdbc_username>
+			<jdbc_password>Jgliang1982</jdbc_password>
+			
+			<SDK_APPID>1400027577</SDK_APPID>
+			<private_key_path>/export/data/bin/private_key</private_key_path>
+			<public_key_path>/export/data/bin/public_key</public_key_path>
+			<BIZID>123456</BIZID>
+			<LIVE_URLS>liveplay.myqcloud.com/live/</LIVE_URLS>
 		</properties>
 	</profile>
   </profiles>

@@ -3,9 +3,23 @@ package live.server.Util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class CommonUtil {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-	public static final String SDK_APPID = null;
+public class CommonUtil {
+	private static final Log log = LogFactory.getLog(CommonUtil.class);
+
+	public static final long EXPIRED_TIME = 7 * 24 * 60 * 60;
+
+	public static String BIZID;
+
+	public static String LIVE_URLS;
+
+	public static String SDK_APPID;
+	
+	public static String PRIVATE_KEY_PATH;
+	
+	private static String PUBLIC_KEY_PATH;
 
 	public static String md5(String str) {
 		String result = null;
@@ -23,9 +37,44 @@ public class CommonUtil {
 		return result;
 	}
 
-	public static String createUserSig(String sdkAppid) {
-		// TODO Auto-generated method stub
-		return null;
+	public static String getSDK_APPID() {
+		return SDK_APPID;
+	}
+
+	public static String getPRIVATE_KEY_PATH() {
+		return PRIVATE_KEY_PATH;
+	}
+
+	public static String getPUBLIC_KEY_PATH() {
+		return PUBLIC_KEY_PATH;
+	}
+
+	public static void setSDK_APPID(String sDK_APPID) {
+		SDK_APPID = sDK_APPID;
+	}
+
+	public static void setPRIVATE_KEY_PATH(String pRIVATE_KEY_PATH) {
+		PRIVATE_KEY_PATH = pRIVATE_KEY_PATH;
+	}
+
+	public static void setPUBLIC_KEY_PATH(String pUBLIC_KEY_PATH) {
+		PUBLIC_KEY_PATH = pUBLIC_KEY_PATH;
+	}
+
+	public static String getBIZID() {
+		return BIZID;
+	}
+
+	public static String getLIVE_URLS() {
+		return LIVE_URLS;
+	}
+
+	public static void setBIZID(String bIZID) {
+		BIZID = bIZID;
+	}
+
+	public static void setLIVE_URLS(String lIVE_URLS) {
+		LIVE_URLS = lIVE_URLS;
 	}
 
 }

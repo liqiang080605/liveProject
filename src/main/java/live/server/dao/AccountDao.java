@@ -10,4 +10,8 @@ public interface AccountDao {
 
 	public int update(Account account);
 
+	public Account queryByToken(String token);
+
+	public int logout(Account account);
+
 }

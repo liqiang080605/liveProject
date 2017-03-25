@@ -7,7 +7,7 @@ public class Account {
 	
 	String token;
 	
-	String state;
+	Integer state;
 	
 	String user_sig;
 	
@@ -31,7 +31,7 @@ public class Account {
 		return token;
 	}
 
-	public String getState() {
+	public Integer getState() {
 		return state;
 	}
 
@@ -67,7 +67,7 @@ public class Account {
 		this.token = token;
 	}
 
-	public void setState(String state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
@@ -90,6 +90,5 @@ public class Account {
 	public void setLast_request_time(String last_request_time) {
 		this.last_request_time = last_request_time;
 	}
-	
-	
+
 }

@@ -10,6 +10,8 @@ public interface Constants {
 	
 	Integer ERR_PASSWORD = 10006;
 	
+	Integer ERR_TOKEN_EXPIRE = 10009;
+	
 	Integer ERR_SERVER = 90000;
 	
 	Integer ERR_SUCCESS = 0;

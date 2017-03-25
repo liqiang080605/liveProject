@@ -14,6 +14,7 @@ import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.dao.AccountDao;
 import live.server.model.Account;
+import live.server.shell.ShellService;
 
 @Service
 public class AccountService {
@@ -21,6 +22,9 @@ public class AccountService {
 	
 	@Autowired
 	AccountDao accountDao;
+	
+	@Autowired
+	ShellService shellService;
 	
 	public void exec(String cmd, String jsonStr, Map<String, Object> resultMap) {
 		if(cmd.equals("regist")) {
@@ -63,7 +67,7 @@ public class AccountService {
 		//获取sig
 		String user_sig = account.getUser_sig();
 		if(StringUtils.isBlank(user_sig)) {
-			user_sig = CommonUtil.createUserSig(CommonUtil.SDK_APPID);
+			user_sig = shellService.createUserSig(CommonUtil.SDK_APPID, account.getUid());
 			if(StringUtils.isBlank(user_sig)) {
 				resultMap.put("errorCode",Constants.ERR_SERVER);
 				resultMap.put("errorInfo", "Server error: gen sig fail.");
@@ -92,7 +96,9 @@ public class AccountService {
 		}
 		
 		account.setToken(token);
+		account.setState(1);
 		account.setLogin_time(String.valueOf(System.currentTimeMillis()/1000));
+		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
 		
 		int count = accountDao.update(account);
 		
@@ -132,11 +138,11 @@ public class AccountService {
 		account = new Account();
 		account.setUid(id);
 		account.setPwd(pwd);
-		account.setLast_request_time("0");
-		account.setLogin_time("0");
-		account.setLogout_time("0");
+		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
+		account.setLogin_time(String.valueOf(System.currentTimeMillis()/1000));
+		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setRegister_time(String.valueOf(System.currentTimeMillis()/1000));
-		account.setState("0");
+		account.setState(0);
 		
 		int count = accountDao.insert(account);
 		
@@ -149,4 +155,32 @@ public class AccountService {
 		}
 	}
 
+	public Account queryByToken(String token) {
+		return accountDao.queryByToken(token);
+	}
+
+	public boolean checkToken(String token) {
+		Account account = queryByToken(token);
+		long last_request_time = Long.valueOf(account.getLast_request_time());
+		long currentTime = System.currentTimeMillis()/1000;
+		if(currentTime - last_request_time > CommonUtil.EXPIRED_TIME) {
+			int count = logout(account);
+			if(count < 1) {
+				log.error("Repeat logout. account uid is " + account.getUid());
+			}
+			return false;
+		}
+		
+		account.setLast_request_time(String.valueOf(currentTime));
+		accountDao.update(account);
+		
+		return true;
+	}
+
+	private int logout(Account account) {
+		account.setState(0);
+		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
+		return accountDao.logout(account);
+	}
+	
 }
