@@ -125,7 +125,7 @@ public class LiveService {
 	private String getValueFromMap(Map<String, Object> map, String key) {
 		Object v = map.get(key);
 		if(v == null) {
-			return null;
+			return "";
 		} else {
 			return String.valueOf(v);
 		}

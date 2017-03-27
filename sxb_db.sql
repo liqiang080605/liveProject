@@ -173,3 +173,24 @@ alter table `t_video_record` add column room_num int(11) comment '房间号' aft
 alter table `t_video_record` add column file_name varchar(100) comment '视频名' after `cover`;
 alter table `t_video_record` add column start_time int(11)  not null default 0  comment '录制时间' after `video_id`;
 alter table `t_video_record` add column end_time int(11)  not null default 0  comment '录制时间' after `start_time`;
+
+
+-- 新增账号角色字段
+alter table t_account add column role int default 0 COMMENT '账号角色， 0普通， 10专家，100管理员';
+
+-- 邀請碼管理
+create table t_code
+(
+   id                   int not null auto_increment,
+   uid                  varchar(100),
+   code_value           varchar(10) not null,
+   create_time            varchar(15),
+   expired              int(10) default 0 comment '是否过期，0没有过期，1过期',
+   primary key (id)
+);
+
+create unique index uid_expired on t_code
+(
+   uid,
+   expired
+);

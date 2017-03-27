@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.service.AccountService;
+import live.server.service.CodeService;
 import live.server.service.LiveService;
 
 @Controller
@@ -27,6 +28,9 @@ public class RestController {
 	
 	@Autowired
 	LiveService liveService;
+	
+	@Autowired
+	CodeService codeService;
 	
 	@RequestMapping(value = "index.php", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -41,6 +45,8 @@ public class RestController {
 				accountService.exec(cmd, jsonStr, resultMap);
 			} else if (svc.equals("live")) {
 				liveService.exec(cmd, jsonStr, resultMap);
+			} else if (svc.equals("code")) {
+				codeService.exec(cmd, jsonStr, resultMap);
 			}
 		} catch (Exception e) {
 			log.error("Failed to exec cmd. " + "Request svc is " + 

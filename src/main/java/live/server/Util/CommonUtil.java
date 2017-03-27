@@ -2,7 +2,9 @@ package live.server.Util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -10,6 +12,10 @@ public class CommonUtil {
 	private static final Log log = LogFactory.getLog(CommonUtil.class);
 
 	public static final long EXPIRED_TIME = 7 * 24 * 60 * 60;
+
+	public static final Integer CODE_EXPIRED_0 = 0;
+
+	public static final Integer CODE_EXPIRED_1 = 1;
 
 	public static String BIZID;
 
@@ -75,6 +81,15 @@ public class CommonUtil {
 
 	public static void setLIVE_URLS(String lIVE_URLS) {
 		LIVE_URLS = lIVE_URLS;
+	}
+
+	public static String getRandomCode() {
+		String code = "";
+		for(int i = 0; i < 6; i++) {
+			code += String.valueOf(RandomUtils.nextInt(10));
+		}
+		
+		return code;
 	}
 
 }

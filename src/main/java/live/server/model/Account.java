@@ -5,6 +5,8 @@ public class Account {
 	
 	String pwd;
 	
+	Integer role;
+	
 	String token;
 	
 	Integer state;
@@ -89,6 +91,14 @@ public class Account {
 
 	public void setLast_request_time(String last_request_time) {
 		this.last_request_time = last_request_time;
+	}
+
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
 	}
 
 }

@@ -15,5 +15,9 @@ public interface Constants {
 	Integer ERR_SERVER = 90000;
 	
 	Integer ERR_SUCCESS = 0;
+	
+	Integer ERR_CODE_EXPIRE = 20001;
+
+	Integer ERR_CODE = 20002;
 
 }
