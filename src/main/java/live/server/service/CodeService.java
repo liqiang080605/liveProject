@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +12,9 @@ import org.springframework.stereotype.Service;
 import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
-import live.server.dao.AccountDao;
 import live.server.dao.CodeDao;
 import live.server.model.Account;
-import live.server.model.AvRoom;
 import live.server.model.Code;
-import live.server.model.InteractAvRoom;
-import live.server.model.NewLiveRecord;
-import live.server.shell.ShellService;
 
 @Service
 public class CodeService {
@@ -39,6 +33,10 @@ public class CodeService {
 			createCode(jsonStr, resultMap);
 		} else if(cmd.equals("check")) {
 			checkCode(jsonStr, resultMap);
+		} else {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Cmd is error.");
+			return;
 		}
 	}
 

@@ -31,6 +31,10 @@ public class AccountService {
 			register(jsonStr, resultMap);
 		} else if(cmd.equals("login")) {
 			login(jsonStr, resultMap);
+		} else {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Cmd is error.");
+			return;
 		}
 	}
 

@@ -40,6 +40,10 @@ public class LiveService {
 			createRoom(jsonStr, resultMap);
 		} else if(cmd.equals("reportroom")) {
 			reportRoom(jsonStr, resultMap);
+		} else {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Cmd is error.");
+			return;
 		}
 	}
 

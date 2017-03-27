@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
-import live.server.dao.AccountDao;
 import live.server.dao.RoomDao;
-import live.server.model.Account;
 import live.server.model.AvRoom;
 
 @Service
