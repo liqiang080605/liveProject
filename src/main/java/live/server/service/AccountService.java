@@ -50,7 +50,7 @@ public class AccountService {
 		
 		String id = String.valueOf(map.get("id"));
 		String pwd = String.valueOf(map.get("pwd"));
-		pwd = CommonUtil.md5(pwd);
+		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
 		
@@ -129,7 +129,7 @@ public class AccountService {
 		
 		String id = String.valueOf(map.get("id"));
 		String pwd = String.valueOf(map.get("pwd"));
-		pwd = CommonUtil.md5(pwd);
+		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
 		

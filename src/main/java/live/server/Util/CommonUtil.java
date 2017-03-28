@@ -42,7 +42,23 @@ public class CommonUtil {
 		}
 		return result;
 	}
-
+	
+	public static String sha256(String str) {
+		String result = null;
+		try {
+			result = new String(str);
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			StringBuilder sb = new StringBuilder();
+			for (byte b : md.digest(str.getBytes())) {
+				sb.append(String.format("%02X", b));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static String getSDK_APPID() {
 		return SDK_APPID;
 	}
