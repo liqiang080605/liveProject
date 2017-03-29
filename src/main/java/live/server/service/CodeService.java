@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
-import live.server.dao.AccountDao;
 import live.server.dao.CodeDao;
 import live.server.model.Account;
 import live.server.model.Code;
@@ -119,6 +118,12 @@ public class CodeService {
 		}
 		
 		Code code = null;
+		
+		if(account.getRole() < 100) {
+			resultMap.put("errorCode",Constants.ERR_NO_CODEAUTH);
+			resultMap.put("errorInfo", "User has no auth to create code.");
+			return;
+		}
 		
 		List<Code> codeList = codeDao.queryByUid(account.getUid());
 		if(codeList.size() > 0) {

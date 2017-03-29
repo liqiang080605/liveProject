@@ -21,5 +21,6 @@ public interface Constants {
 	Integer ERR_CODE = 30002;
 	
 	Integer ERR_CODE_CHECK = 30003;
-
+	
+	Integer ERR_NO_CODEAUTH = 30004;
 }
