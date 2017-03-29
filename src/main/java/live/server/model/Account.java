@@ -20,6 +20,8 @@ public class Account {
 	String logout_time;
 	
 	String last_request_time;
+	
+	Integer code_status;
 
 	public String getUid() {
 		return uid;
@@ -99,6 +101,14 @@ public class Account {
 
 	public void setRole(Integer role) {
 		this.role = role;
+	}
+
+	public Integer getCode_status() {
+		return code_status;
+	}
+
+	public void setCode_status(Integer code_status) {
+		this.code_status = code_status;
 	}
 
 }

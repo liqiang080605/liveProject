@@ -68,6 +68,12 @@ public class AccountService {
 			return;
 		}
 		
+		if(account.getCode_status() == 0) {
+			resultMap.put("errorCode", Constants.ERR_CODE_CHECK);
+			resultMap.put("errorInfo", "Please check the code");
+			return;
+		}
+		
 		//获取sig
 		String user_sig = account.getUser_sig();
 		if(StringUtils.isBlank(user_sig)) {
@@ -88,6 +94,7 @@ public class AccountService {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("token", account.getToken());
 			dataMap.put("userSig", account.getUser_sig());
+			dataMap.put("codeStatus", account.getCode_status());
 			resultMap.put("data", dataMap);
 			return;
 		}
@@ -147,6 +154,7 @@ public class AccountService {
 		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setRegister_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setState(0);
+		account.setCode_status(0);
 		
 		int count = accountDao.insert(account);
 		
@@ -185,6 +193,10 @@ public class AccountService {
 		account.setState(0);
 		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
 		return accountDao.logout(account);
+	}
+
+	public void update(Account account) {
+		accountDao.update(account);
 	}
 	
 }

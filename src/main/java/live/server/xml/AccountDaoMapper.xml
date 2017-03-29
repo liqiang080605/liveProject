@@ -13,11 +13,12 @@
 		<result property="logout_time" column="logout_time" />
 		<result property="last_request_time" column="last_request_time" />
 		<result property="role" column="role" />
+		<result property="code_status" column="code_status" />
 	</resultMap>
 
 	<sql id="base_column">
 		uid, pwd, token, state, user_sig, register_time, login_time,
-		logout_time, last_request_time, role
+		logout_time, last_request_time, role,code_status
 	</sql>
 	
 	<insert id="insert">
@@ -26,7 +27,7 @@
 		<include refid="base_column" />
 		)
 		VALUES(#{uid}, #{pwd}, #{token}, #{state}, #{user_sig}, #{register_time},
-		#{login_time}, #{logout_time}, #{last_request_time}, #{role})
+		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status})
 	</insert>
 	
 	<select id="queryById" resultMap="account">
@@ -63,6 +64,9 @@
 		</if>
 		<if test="role != null and role != ''">
 			, role = #{role}
+		</if>
+		<if test="code_status != null and code_status != ''">
+			, code_status = #{code_status}
 		</if>
 		where uid = #{uid}
 	</update>

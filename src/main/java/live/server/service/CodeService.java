@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
+import live.server.dao.AccountDao;
 import live.server.dao.CodeDao;
 import live.server.model.Account;
 import live.server.model.Code;
@@ -85,6 +86,9 @@ public class CodeService {
 				return;
 			}
 		}
+		
+		account.setCode_status(1);
+	    accountService.update(account);
 		
 		resultMap.put("errorCode",Constants.ERR_SUCCESS);
 		resultMap.put("errorInfo", "success.");

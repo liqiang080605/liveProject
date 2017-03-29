@@ -107,7 +107,7 @@ alter table `t_new_live_record` add column `play_url3` varchar(128) after `play_
 
 CREATE TABLE IF NOT EXISTS `t_account` (
  `uid`                varchar(50)   NOT  NULL COMMENT '用户名',          
- `pwd`                varchar(50)   NOT  NULL  COMMENT '用户密码',         
+ `pwd`                varchar(100)   NOT  NULL  COMMENT '用户密码',         
  `token`              varchar(50)   DEFAULT NULL COMMENT '用户token',           
  `state`              tinyint(1)    NOT  NULL DEFAULT  0   COMMENT '登录状态',            
  `user_sig`           varchar(512)  DEFAULT NULL COMMENT 'sig',        
@@ -194,3 +194,6 @@ create unique index uid_expired on t_code
    uid,
    expired
 );
+
+
+alter table t_account add column code_status int(10) not null default 0 comment '验证状态';

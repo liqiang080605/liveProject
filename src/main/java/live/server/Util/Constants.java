@@ -19,5 +19,7 @@ public interface Constants {
 	Integer ERR_CODE_EXPIRE = 30001;
 
 	Integer ERR_CODE = 30002;
+	
+	Integer ERR_CODE_CHECK = 30003;
 
 }
