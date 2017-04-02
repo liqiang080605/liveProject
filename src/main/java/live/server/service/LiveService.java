@@ -49,11 +49,178 @@ public class LiveService {
 			reportmemid(jsonStr, resultMap);
 		} else if (cmd.equals("roomidlist")) {
 			roomidlist(jsonStr, resultMap);
+		} else if (cmd.equals("heartbeat")) {
+			heartbeat(jsonStr, resultMap);
+		} else if (cmd.equals("request")) {
+			request(jsonStr, resultMap);
+		} else if (cmd.equals("reportstatus")) {
+			reportstatus(jsonStr, resultMap);
+		} else if (cmd.equals("exitroom")) {
+			exitroom(jsonStr, resultMap);
 		} else {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Cmd is error.");
 			return;
 		}
+	}
+
+	private void exitroom(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("roomnum") || !map.containsKey("type")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		int roomnum = Integer.valueOf(String.valueOf(map.get("roomnum")));
+		String type = String.valueOf(map.get("type"));
+		
+		Account account = accountService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(!accountService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		//删除直播记录
+		nliveRecordService.deleteByHostUid(account.getUid());
+		
+		//清空房间成员
+		iavRoomService.ClearRoomByRoomNum(roomnum);
+		
+		resultMap.put("errorCode",Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
+	}
+
+	private void request(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("roomnum")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		int roomnum = Integer.valueOf(String.valueOf(map.get("roomnum")));
+		
+		Account account = accountService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(!accountService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		int count = iavRoomService.countByRoomId(roomnum);
+		if(count == 0) {
+			resultMap.put("errorCode",Constants.ERR_AV_ROOM_NOT_EXIST);
+			resultMap.put("errorInfo", "av room is not exist.");
+			return;
+		}
+		
+		InteractAvRoom iavRoom = new InteractAvRoom();
+		iavRoom.setUid(account.getUid());
+		iavRoom.setAv_room_id(roomnum);
+		iavRoom.setStatus("off");
+		iavRoom.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
+		iavRoom.setRole(CommonUtil.IAVROOM_ROLE_0);
+		iavRoomService.enterRoom(iavRoom);
+		
+		resultMap.put("errorCode",Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
+	}
+
+	private void reportstatus(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("status") || !map.containsKey("roomnum")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		String status = String.valueOf(map.get("status"));
+		int roomnum = Integer.valueOf(String.valueOf(map.get("roomnum")));
+		
+		Account account = accountService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(!accountService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		InteractAvRoom iavRoom = new InteractAvRoom();
+		iavRoom.setUid(account.getUid());
+		iavRoom.setAv_room_id(roomnum);
+		iavRoom.setStatus(status);
+		iavRoom.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
+		iavRoomService.update(iavRoom);
+		
+		resultMap.put("errorCode",Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
+	}
+
+	private void heartbeat(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("role") || !map.containsKey("roomnum") || !map.containsKey("thumbup")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		int role = Integer.valueOf(String.valueOf(map.get("role")));
+		int roomnum = Integer.valueOf(String.valueOf(map.get("roomnum")));
+		int thumbup = Integer.valueOf(String.valueOf(map.get("thumbup")));
+		
+		Account account = accountService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(!accountService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		InteractAvRoom iaRoom = new InteractAvRoom();
+		iaRoom.setUid(account.getUid());
+		iaRoom.setRole(role);
+		iaRoom.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
+		iavRoomService.updateLastUpdateTimeByUid(iaRoom);
+		
+		NewLiveRecord nlRecord = new NewLiveRecord();
+		nlRecord.setAdmire_count(thumbup);
+		nlRecord.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
+		nlRecord.setHost_uid(account.getUid());
+		nliveRecordService.updateByHostUid(nlRecord);
+		
+		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
+		accountService.update(account);
+		
+		resultMap.put("errorCode",Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
 	}
 
 	private void roomidlist(String jsonStr, Map<String, Object> resultMap) {

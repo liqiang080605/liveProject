@@ -33,4 +33,17 @@ public class IavRoomService {
 		return iavRoomDao.query(iaRoom);
 	}
 
+	public void updateLastUpdateTimeByUid(InteractAvRoom iaRoom) {
+		iavRoomDao.update(iaRoom);
+	}
+
+	public void update(InteractAvRoom iavRoom) {
+		iavRoomDao.update(iavRoom);
+	}
+
+	public void ClearRoomByRoomNum(int roomnum) {
+		iavRoomDao.deleteByRoomId(roomnum);
+		
+	}
+
 }

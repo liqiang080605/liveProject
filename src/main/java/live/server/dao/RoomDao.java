@@ -10,4 +10,6 @@ public interface RoomDao {
 
 	void insert(AvRoom room);
 
+	void deleteByUid(String uid);
+
 }

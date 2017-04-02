@@ -43,8 +43,27 @@
 		</if>
 	</select>
 	
+	<update id="update">
+		update t_interact_av_room 
+		set modify_time = #{modify_time}
+		<if test="status != null and status != ''">
+			, status = #{status}
+		</if>
+		<if test="av_room_id != null and av_room_id != ''">
+			, av_room_id = #{av_room_id}
+		</if>
+		<if test="role != null and role != ''">
+			, role = #{role}
+		</if>
+		where uid = #{uid}
+	</update>
+		
 	<delete id="deleteByUid">
 		delete from t_interact_av_room where uid = #{uid};
+	</delete>
+	
+	<delete id="deleteByRoomId">
+		delete from t_interact_av_room where av_room_id = #{av_room_id};
 	</delete>
 
 </mapper>

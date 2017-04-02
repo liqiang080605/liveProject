@@ -81,4 +81,12 @@ public class NewLiveRecordService {
 		return nliveRecordDao.query(queryNLR);
 	}
 
+	public void updateByHostUid(NewLiveRecord nlRecord) {
+		nliveRecordDao.updateByHostUid(nlRecord);
+	}
+
+	public void deleteByHostUid(String uid) {
+		nliveRecordDao.deleteByHostUid(uid);
+	}
+
 }

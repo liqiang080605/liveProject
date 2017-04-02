@@ -14,4 +14,8 @@ public interface InteractAvRoomDao {
 
 	List<InteractAvRoom> query(InteractAvRoom iaRoom);
 
+	void update(InteractAvRoom iaRoom);
+
+	void deleteByRoomId(int roomnum);
+
 }

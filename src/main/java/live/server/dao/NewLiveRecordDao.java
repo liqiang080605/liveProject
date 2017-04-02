@@ -13,4 +13,8 @@ public interface NewLiveRecordDao {
 
 	int countByAppId(Map<String, Object> map);
 
+	void updateByHostUid(NewLiveRecord nlRecord);
+
+	void deleteByHostUid(String uid);
+
 }

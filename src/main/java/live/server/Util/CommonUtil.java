@@ -21,6 +21,12 @@ public class CommonUtil {
 	
 	public static final Integer ACCOUNT_STATE_1 = 1;
 
+	public static final Integer IAVROOM_ROLE_0 = 0;
+	
+	public static final Integer IAVROOM_ROLE_1 = 1;
+	
+	public static final Integer IAVROOM_ROLE_2 = 2;
+
 	public static String BIZID;
 
 	public static String LIVE_URLS;

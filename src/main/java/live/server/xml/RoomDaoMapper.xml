@@ -40,5 +40,9 @@
 		</if>
 		where id = #{id}
 	</update>
+	
+	<delete id="deleteByUid">
+		delete from t_av_room where uid = #{uid}
+	</delete>
 
 </mapper>

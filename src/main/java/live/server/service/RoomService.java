@@ -75,4 +75,8 @@ public class RoomService {
 		return roomDao.queryByUid(uid);
 	}
 
+	public void exitByUid(String uid) {
+		roomDao.deleteByUid(uid);
+	}
+
 }

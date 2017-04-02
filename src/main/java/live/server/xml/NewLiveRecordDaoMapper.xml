@@ -79,6 +79,9 @@
 		<if test="latitude != null and latitude != ''">
 			and latitude = #{latitude}
 		</if>
+		<if test="address != null and address != ''">
+			and address = #{address}
+		</if>
 		<if test="video_type != null and video_type != ''">
 			and video_type = #{video_type}
 		</if>
@@ -91,5 +94,54 @@
 		</if>
 		
 	</select>
+	
+	<update id="updateByHostUid">
+		update t_new_live_record
+		set modify_time = #{modify_time}
+		<if test="appid != null and appid != ''">
+			, appid = #{appid}
+		</if>
+		<if test="title != null and title != ''">
+			, title = #{title}
+		</if>
+		<if test="cover != null and cover != ''">
+			, cover = #{cover}
+		</if>
+		<if test="av_room_id != null and av_room_id != ''">
+			, av_room_id = #{av_room_id}
+		</if>
+		<if test="chat_room_id != null and chat_room_id != ''">
+			, chat_room_id = #{chat_room_id}
+		</if>
+		<if test="room_type != null and room_type != ''">
+			, room_type = #{room_type}
+		</if>
+		<if test="admire_count != null and admire_count != ''">
+			, admire_count = #{admire_count}
+		</if>
+		<if test="longitude != null and longitude != ''">
+			, longitude = #{longitude}
+		</if>
+		<if test="latitude != null and latitude != ''">
+			, latitude = #{latitude}
+		</if>
+		<if test="video_type != null and video_type != ''">
+			, video_type = #{video_type}
+		</if>
+		<if test="device != null and device != ''">
+			, device = #{device}
+		</if>
+		<if test="device != null and device != ''">
+			, device = #{device}
+		</if>
+		<if test="address != null and address != ''">
+			, address = #{address}
+		</if>
+		where host_uid = #{host_uid}
+	</update>
+	
+	<delete id="deleteByHostUid">
+		delete from t_new_live_record where host_uid = #{host_uid}
+	</delete>
 	
 </mapper>

@@ -27,6 +27,9 @@ public class AccountService {
 	@Autowired
 	ShellService shellService;
 	
+	@Autowired
+	RoomService rService;
+	
 	public void exec(String cmd, String jsonStr, Map<String, Object> resultMap) {
 		if(cmd.equals("regist")) {
 			register(jsonStr, resultMap);
@@ -61,6 +64,10 @@ public class AccountService {
 			return;
 		}
 		
+		//退出所创建的房间
+		rService.exitByUid(account.getUid());
+		
+		//退出账户
 		logout(account);
 		
 		resultMap.put("errorCode", Constants.ERR_SUCCESS);
@@ -152,6 +159,7 @@ public class AccountService {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("token", account.getToken());
 			dataMap.put("userSig", account.getUser_sig());
+			dataMap.put("role", account.getRole());
 			resultMap.put("data", dataMap);
 		}
 	}
