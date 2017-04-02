@@ -17,6 +17,10 @@ public class CommonUtil {
 
 	public static final Integer CODE_EXPIRED_1 = 1;
 
+	public static final Integer ACCOUNT_STATE_0 = 0;
+	
+	public static final Integer ACCOUNT_STATE_1 = 1;
+
 	public static String BIZID;
 
 	public static String LIVE_URLS;

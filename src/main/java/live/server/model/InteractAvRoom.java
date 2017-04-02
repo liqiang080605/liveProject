@@ -10,6 +10,10 @@ public class InteractAvRoom {
 	String modify_time;
 	
 	Integer role;
+	
+	Integer offset;
+	
+	Integer limit;
 
 	public String getUid() {
 		return uid;
@@ -49,6 +53,22 @@ public class InteractAvRoom {
 
 	public void setModify_time(String modify_time) {
 		this.modify_time = modify_time;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
 	}
 
 }

@@ -1,7 +1,11 @@
 package live.server.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import live.server.Util.CommonUtil;
 import live.server.dao.NewLiveRecordDao;
+import live.server.model.InteractAvRoom;
 import live.server.model.NewLiveRecord;
 
 @Service
@@ -43,6 +48,37 @@ public class NewLiveRecordService {
 		nliveRecord.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
 		
 		return nliveRecordDao.replaceInsert(nliveRecord);
+	}
+
+	public List<NewLiveRecord> getLiveRoomList(int index, int size, String type, String appid) {
+		NewLiveRecord queryNLR = new NewLiveRecord();
+		if(StringUtils.isBlank(appid)) {
+			queryNLR.setAppid(null);
+		} else {
+			queryNLR.setAppid(Integer.valueOf(appid));
+		}
+		queryNLR.setRoom_type(type);
+		queryNLR.setOffset(index);
+		queryNLR.setLimit(size);
+		
+		return nliveRecordDao.query(queryNLR);
+	}
+
+	public int countByAppId(String appid) {
+		Integer queryAppId = null;
+		if(!StringUtils.isBlank(appid)) {
+			queryAppId = Integer.valueOf(appid);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("appid", queryAppId);
+		
+		return nliveRecordDao.countByAppId(map);
+	}
+
+	public List<NewLiveRecord> queryByAVRoomId(int roomnum) {
+		NewLiveRecord queryNLR = new NewLiveRecord();
+		queryNLR.setAv_room_id(roomnum);
+		return nliveRecordDao.query(queryNLR);
 	}
 
 }

@@ -40,6 +40,10 @@ public class NewLiveRecord {
 	String play_url2;
 	
 	String play_url3;
+	
+	Integer limit;
+	
+	Integer offset;
 
 	public Integer getId() {
 		return id;
@@ -179,6 +183,22 @@ public class NewLiveRecord {
 
 	public void setDevice(Integer device) {
 		this.device = device;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
 	}
 
 	public void setPlay_url1(String play_url1) {

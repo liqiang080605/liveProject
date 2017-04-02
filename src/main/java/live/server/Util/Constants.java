@@ -23,4 +23,8 @@ public interface Constants {
 	Integer ERR_CODE_CHECK = 30003;
 	
 	Integer ERR_NO_CODEAUTH = 30004;
+
+	Integer ERR_AV_ROOM_NOT_EXIST = 10010;
+
+	Integer ERR_AUTH_CREATEROOM = 40001;
 }

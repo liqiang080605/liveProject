@@ -20,5 +20,31 @@
 		)
 		VALUES(#{uid}, #{av_room_id}, #{status}, #{modify_time}, #{role})
 	</insert>
+	
+	<select id="countByRoomId" resultType="int">
+	    select count(*) from t_interact_av_room
+	    where av_room_id = #{av_room_id}
+	</select>
+	
+	<select id="query" resultMap="iavRoom">
+		select * from t_interact_av_room
+		where 1=1
+		<if test="uid != null and uid != ''">
+			and uid = #{uid}
+		</if>
+		<if test="av_room_id != null and av_room_id != ''">
+			and av_room_id = #{av_room_id}
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
+		<if test="role != null and role != ''">
+			and role = #{role}
+		</if>
+	</select>
+	
+	<delete id="deleteByUid">
+		delete from t_interact_av_room where uid = #{uid};
+	</delete>
 
 </mapper>

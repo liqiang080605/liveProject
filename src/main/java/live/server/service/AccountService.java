@@ -14,6 +14,7 @@ import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.dao.AccountDao;
 import live.server.model.Account;
+import live.server.model.UserRole;
 import live.server.shell.ShellService;
 
 @Service
@@ -31,11 +32,40 @@ public class AccountService {
 			register(jsonStr, resultMap);
 		} else if(cmd.equals("login")) {
 			login(jsonStr, resultMap);
-		} else {
+		}  else if(cmd.equals("logout")) {
+			logout(jsonStr, resultMap);
+		}else {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Cmd is error.");
 			return;
 		}
+	}
+
+	private void logout(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		
+		//参数验证
+		if(!map.containsKey("token")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		
+		String token = String.valueOf(map.get("token"));
+		
+		Account account = queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		logout(account);
+		
+		resultMap.put("errorCode", Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success!");
+		return;
 	}
 
 	private void login(String jsonStr, Map<String, Object> resultMap) {
@@ -154,6 +184,7 @@ public class AccountService {
 		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setRegister_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setState(0);
+		account.setRole(UserRole.USER.getRole());
 		account.setCode_status(0);
 		
 		int count = accountDao.insert(account);
@@ -190,7 +221,7 @@ public class AccountService {
 	}
 
 	private int logout(Account account) {
-		account.setState(0);
+		account.setState(CommonUtil.ACCOUNT_STATE_0);
 		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));
 		return accountDao.logout(account);
 	}

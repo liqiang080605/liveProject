@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="live.server.dao.NewLiveRecordDao">
 	
-	<resultMap id="room" type="live.server.model.NewLiveRecord">
+	<resultMap id="roomRecord" type="live.server.model.NewLiveRecord">
 		<id property="id" column="id" />
 		<result property="create_time" column="create_time" />
 		<result property="modify_time" column="modify_time" />
@@ -37,5 +37,59 @@
 		VALUES(NULL, #{create_time}, #{modify_time}, #{appid}, #{title}, #{cover}, #{host_uid}, #{av_room_id}, #{chat_room_id}, 
 		#{room_type}, #{admire_count}, #{longitude}, #{latitude}, #{address}, #{video_type}, #{device}, #{play_url1}, #{play_url2}, #{play_url3})
 	</insert>
-
+	
+	<select id="countByAppId" resultType="int">
+		select count(*) from t_new_live_record
+		where 1=1
+		<if test="appid != null and appid != ''">
+			and appid = #{appid}
+		</if>
+	</select>
+	
+	<select id="query" resultMap="roomRecord">
+		select * from t_new_live_record
+		where 1=1
+		<if test="appid != null and appid != ''">
+			and appid = #{appid}
+		</if>
+		<if test="title != null and title != ''">
+			and title = #{title}
+		</if>
+		<if test="cover != null and cover != ''">
+			and cover = #{cover}
+		</if>
+		<if test="host_uid != null and host_uid != ''">
+			and host_uid = #{host_uid}
+		</if>
+		<if test="av_room_id != null and av_room_id != ''">
+			and av_room_id = #{av_room_id}
+		</if>
+		<if test="chat_room_id != null and chat_room_id != ''">
+			and chat_room_id = #{chat_room_id}
+		</if>
+		<if test="room_type != null and room_type != ''">
+			and room_type = #{room_type}
+		</if>
+		<if test="admire_count != null and admire_count != ''">
+			and admire_count = #{admire_count}
+		</if>
+		<if test="longitude != null and longitude != ''">
+			and longitude = #{longitude}
+		</if>
+		<if test="latitude != null and latitude != ''">
+			and latitude = #{latitude}
+		</if>
+		<if test="video_type != null and video_type != ''">
+			and video_type = #{video_type}
+		</if>
+		<if test="device != null and device != ''">
+			and device = #{device}
+		</if>
+		ORDER BY id DESC 
+		<if test="offset != null and offset != ''">
+			LIMIT #{offset}, #{limit};
+		</if>
+		
+	</select>
+	
 </mapper>
