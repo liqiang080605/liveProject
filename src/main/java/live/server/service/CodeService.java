@@ -20,7 +20,7 @@ import live.server.model.Code;
 public class CodeService {
 	private static final Log log = LogFactory.getLog(CodeService.class);
 	
-	private static final int EXPIRED_TIME = 10 * 60;
+	private static final int EXPIRED_TIME = 24 * 60 * 60;
 	
 	@Autowired
 	AccountService accountService;
@@ -44,53 +44,61 @@ public class CodeService {
 		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
 		
 		//参数验证
-		if(!map.containsKey("token") || !map.containsKey("code")) {
+		if(!map.containsKey("id") || !map.containsKey("code") || !map.containsKey("pwd")) {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Error request json.");
 			return;
 		}
-		String token = String.valueOf(map.get("token"));
+		String uid = String.valueOf(map.get("id"));
+		String password = String.valueOf(map.get("pwd"));
 		String code_value = String.valueOf(map.get("code"));
 		
-		Account account = accountService.queryByToken(token);
+		Account account = accountService.queryById(uid);
 		if(account == null) {
-			log.error("Token is wrong!");
+			log.error("User or password is not wrong!");
 			resultMap.put("errorCode", Constants.ERR_SERVER);
-			resultMap.put("errorInfo", "Token is wrong!");
+			resultMap.put("errorInfo", "User or password is not wrong!");
 			return;
 		}
 		
-		if(!accountService.checkToken(token)) {
-			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
-			resultMap.put("errorInfo", "User token expired.");
+		if(!account.getPwd().equals(CommonUtil.sha256(password))) {
+			log.error("User or password is not wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "User or password is not wrong!");
 			return;
 		}
 		
-		List<Code> codeList = codeDao.queryByUid(account.getUid());
+		Code queryCode = new Code();
+		queryCode.setCode_value(code_value);
+		queryCode.setExpired(CommonUtil.CODE_EXPIRED_0);
+		
+		List<Code> codeList = codeDao.query(queryCode);
 		if(codeList.size() == 0) {
 			resultMap.put("errorCode",Constants.ERR_CODE_EXPIRE);
-			resultMap.put("errorInfo", "Code is expired.");
+			resultMap.put("errorInfo", "Code is expired or does not exist.");
 			return;
 		} else {
 			Code code = codeList.get(0);
 			if(EXPIRED_TIME - (System.currentTimeMillis()/1000 - Integer.valueOf(code.getCreate_time())) <= 0) {
 				resultMap.put("errorCode",Constants.ERR_CODE_EXPIRE);
 				resultMap.put("errorInfo", "Code is expired.");
+				code.setExpired(CommonUtil.CODE_EXPIRED_1);
+				codeDao.update(code);
 				return;
 			}
 			
-			if(!code.getCode_value().equals(code_value)) {
-				resultMap.put("errorCode",Constants.ERR_CODE);
-				resultMap.put("errorInfo", "Error code.");
-				return;
-			}
+			code.setExpired(CommonUtil.CODE_EXPIRED_1);
+			codeDao.update(code);
 		}
 		
 		account.setCode_status(1);
 	    accountService.update(account);
 		
-		resultMap.put("errorCode",Constants.ERR_SUCCESS);
-		resultMap.put("errorInfo", "success.");
+	    Map<String, Object> loginMap = new HashMap<String, Object>();
+	    loginMap.put("id", uid);
+	    loginMap.put("pwd", password);
+	    
+	    accountService.login(JsonUtil.mapToJson(loginMap), resultMap);
 	}
 
 	private void createCode(String jsonStr, Map<String, Object> resultMap) {

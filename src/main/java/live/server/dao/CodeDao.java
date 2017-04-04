@@ -12,4 +12,6 @@ public interface CodeDao {
 
 	void update(Code code);
 
+	List<Code> query(Code queryCode);
+
 }

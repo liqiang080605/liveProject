@@ -75,7 +75,7 @@ public class AccountService {
 		return;
 	}
 
-	private void login(String jsonStr, Map<String, Object> resultMap) {
+	public void login(String jsonStr, Map<String, Object> resultMap) {
 		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
 		
 		//参数验证
@@ -236,6 +236,10 @@ public class AccountService {
 
 	public void update(Account account) {
 		accountDao.update(account);
+	}
+
+	public Account queryById(String uid) {
+		return accountDao.queryById(uid);
 	}
 	
 }

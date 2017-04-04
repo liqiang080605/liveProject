@@ -21,6 +21,17 @@
 		VALUES(NULL, #{uid}, #{code_value}, #{create_time}, #{expired})
 	</insert>
 	
+	<select id="query" resultMap="code">
+		select * from t_code where expired = 0
+		
+		<if test="code_value != null and code_value != ''">
+			and code_value = #{code_value}
+		</if>
+		<if test="create_time != null and create_time != ''">
+			and create_time = #{create_time}
+		</if>
+	</select>
+	
 	<select id="queryByUid" resultMap="code">
 		select * from t_code where uid = #{uid} and expired = 0
 	</select>
