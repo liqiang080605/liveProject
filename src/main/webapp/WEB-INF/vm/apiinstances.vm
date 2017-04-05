@@ -1,0 +1,64 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        授权列表
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">API管理</a></li>
+        <li class="active">授权列表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>API</th>
+                            <th>UserCode</th>
+                            <th>用户列表</th>
+                            <th>状态</th>
+                            <th>总调用次数</th>
+                            <th>速率(/分钟)</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+
+<script id="tmpl_create" type="text/template">
+    <form class="form form-horizontal">
+		<div class="col-xs-12">
+            <div class="form-group">
+              <label>API名称</label>
+              <input id="id_api_name" value="" type="text" maxlength="100" class="form-control" placeholder="输入API名称,不允许为空">
+            </div>
+            <div class="form-group">
+              <label>UserCode</label>
+              <input id="id_pin" value="" type="text" maxlength="100" class="form-control" placeholder="输入UserCode,不允许为空">
+            </div>
+            <div class="form-group">
+              <label>ERP</label>
+              <input id="id_erp" value="" type="text" maxlength="100" class="form-control" placeholder="输入ERP,不允许为空">
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 col-sm-offset-4">
+					<button type="button" class="btn btn-primary btn-form-button">确认</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>

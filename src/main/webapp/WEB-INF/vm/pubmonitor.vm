@@ -1,0 +1,235 @@
+#set($layout = "layout/empty.vm")
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        ${ip}
+        #*<small>监控图表</small>*#
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-8">
+            实时
+            <div class="btn-group" name="realtime" data-toggle="btn-toggle">
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="on">开</button>
+                <button type="button" class="btn btn-flat btn-primary margin active" data-toggle="off">关</button>
+            </div>
+
+            时间
+            <div class="btn-group" name="time" data-toggle="btn-toggle">
+                <button type="button" class="btn btn-flat btn-primary margin active" data-toggle="0.5">30分钟</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="1">1小时</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="24">1天</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="168">7天</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">CPU使用率(%)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="cpu_usage" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">内存使用率(%)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="memory_usage" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">DISK使用率(%)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="disk_usage" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">负载</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="cpu_load" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">网络流入量(MB/s)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="network_incoming_bytes_rate" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">网络流出量(MB/s)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="network_outgoing_bytes_rate" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">SWAP使用率(%)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="swap_usage" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">TCP连接数</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="tcp_connections" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">CPU温度</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="cpu_temp" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">系统存活(ms)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="ip_ping" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- interactive chart -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">服务器功率(瓦)</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="power_consumption" class="chart" style="height: 300px;"></div>
+                </div><!-- /.box-body-->
+            </div><!-- /.box -->
+
+        </div><!-- /.col -->
+    </div>
+
+</section><!-- /.content -->
+
+<input type="hidden" name="ip" value="${ip}">
+<input type="hidden" name="ispub" value="${ispub}">

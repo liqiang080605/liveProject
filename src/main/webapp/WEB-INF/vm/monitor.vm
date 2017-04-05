@@ -1,0 +1,1456 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        ${ip}
+        #*<small>监控图表</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">监控图</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div id="div_app_instances" style="display: none" class="pull-left margin-l-5">
+            <label>应用实例 <select id="app_instances"></select></label>
+        </div>
+        <div class="pull-right margin-r-5">
+            <div class="btn-group" name="time" data-toggle="btn-toggle">
+                <button type="button" class="btn btn-flat btn-primary margin active" data-toggle="0.5">30分钟</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="1.0">1小时</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="24.0">1天</button>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info btn-flat margin pull-right" id="query">Go!</button>
+                </div>
+                <!-- <button type="button" class="btn btn-flat btn-primary margin" data-toggle="168">7天</button>
+                <button type="button" class="btn btn-flat btn-primary margin" data-toggle="5040">1个月</button> -->
+                <input type="text" class="Wdate" id="startTimer" style="margin-top:12px;height:30px; "
+                       onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'endTimer\',{d:-30});}',maxDate:'%y-%M-%d %H:%m:%s' })">
+                &nbsp;到&nbsp;
+                <input type="text" class="Wdate" id="endTimer" style="margin-top:12px;height:30px; "
+                       onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTimer\')}',maxDate:'#F{$dp.$D(\'startTimer\',{d:30});}' })">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a id="tab_1" href="#" data-toggle="tab">系统指标</a></li>
+                <li><a id="tab_2" href="#" data-toggle="tab">网络指标</a></li>
+                <li><a id="tab_3" href="#" data-toggle="tab">磁盘指标</a></li>
+                <li><a id="tab_4" href="#" data-toggle="tab">硬件指标</a></li>
+                <li><a id="tab_5" href="#" data-toggle="tab">容器指标</a></li>
+                <li><a id="tab_6" href="#" data-toggle="tab">Nginx指标</a></li>
+                <li><a id="tab_7" href="#" data-toggle="tab">Tomcat指标</a></li>
+                <li><a id="tab_8" href="#" data-toggle="tab">JVM指标</a></li>
+            </ul>
+        </div>
+        <!-- nav-tabs-custom -->
+    </div>
+
+    <div id="div_show_tab_1">
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">CPU使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_cpu_usage" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('CPU_Usage')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="cpu_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">内存使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_mem_usage" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('MEM_Usage')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="memory_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">系统存活(0-存活 1-不存活)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="ip_ping" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">负载</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_load" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Load')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="cpu_load" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">SWAP使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="swap_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+    </div>
+
+    <div id="div_show_tab_2" style="display:none;">
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">网络流入量(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_net_in_bytes_rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Net_In_Bytes_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据"></a>
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="network_incoming_bytes_rate" class="chart" style="height: 200px;"></div>
+                    </div>
+                    <!-- /.box-body--></div>
+                <!-- /.box --></div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">网络流出量(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_net_out_bytes_rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Net_Out_Bytes_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据"></a>
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="network_outgoing_bytes_rate" class="chart" style="height: 200px;"></div>
+                    </div>
+                    <!-- /.box-body--></div>
+                <!-- /.box --></div>
+            <!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">网络流入包个数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Net_In_Packets_Rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Net_In_Packets_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="network_incoming_packets_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">网络流出包个数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Net_Out_Packets_Rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Net_Out_Packets_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="network_outgoing_packets_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP连接数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_tcp_connections" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_Connections')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_connections" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP Active Opens</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Tcp_ActiveOpens" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_ActiveOpens')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_active_open" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">接收IP包</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Ip_InReceives" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Ip_InReceives')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="ip_pkgs_received" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">丢弃IP包</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Ip_InDiscards" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Ip_InDiscards')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="ip_pkgs_discards" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP接收包数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Tcp_InSegs" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_InSegs')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_in_segs" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP发送包数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Tcp_OutSegs" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_OutSegs')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_out_segs" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP包传输错误数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Tcp_InErrs" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_InErrs')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_in_err" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">TCP重传数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Tcp_RetransSegs" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Tcp_RetransSegs')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tcp_retrans" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+    </div>
+
+    <div id="div_show_tab_3" style="display:none;">
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">DISK使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_usage" class="chart" style="height: 200px;"></div>
+                    </div>
+                    <!-- /.box-body--></div>
+                <!-- /.box --></div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">磁盘繁忙(%)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Disk_IO_Util" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Disk_IO_Util')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_io_utils" class="chart" style="height: 200px;"></div>
+                    </div>
+                    <!-- /.box-body--></div>
+                <!-- /.box --></div>
+            <!-- /.col --></div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">磁盘读速度(KB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_disk_read_bytes_rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Disk_Read_Bytes_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_io_read_bytes_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">磁盘写速度(KB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_disk_write_byte_rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Disk_Write_Bytes_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_io_write_bytes_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">磁盘读次数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Disk_Read_Requests_Rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Disk_Read_Requests_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_io_read_requests_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">磁盘写次数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Disk_Write_Requests_Rate" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Disk_Write_Requests_Rate')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="disk_io_write_requests_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+    </div>
+
+    <div id="div_show_tab_4" style="display:none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">CPU温度</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="cpu_temp" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">服务器功率(瓦)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="power_consumption" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">CPU风扇</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="fan_load" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+    </div>
+
+
+    <div id="div_show_tab_5" style="display:none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">线程数(/核)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Threads" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Threads')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="vm_thread_numbers" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">进程数(/核)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_Processes" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('Processes')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="vm_proc_numbers" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">内存分配失败次数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_MemoryFailcnt" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('MemoryFailcnt')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="memory_failcnt" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">文件句柄数</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_FD" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('FD')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="fd_numbers" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">SWAP使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <a href="javascript:;" id="data_MemorySwap" class="btn btn-box-tool"
+                               onclick="queryCurrentMetric('MemorySwap')">
+                                <img name="imgbtn" type="image" src="/static/dist/img/realMetric.gif" border="0"
+                                     style="height: 30px;width: 30px;margin-bottom: 10px;" title="实时数据">
+                            </a>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="memory_swap" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+    </div>
+
+
+    <div id="div_show_tab_6" style="display:none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求量(request/s)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_requests_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求成功率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_requests_success_ratio" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求读速率(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_traffic_read_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求写速率(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_traffic_write_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求active连接数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_active_connections" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求idle连接数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_idle_connections" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求reading连接数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_reading_connections" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求writing连接数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_writing_connections" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求结果4xx数(request/min)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_requests_4xx_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Nginx请求结果5xx数(request/min)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="nginx_requests_5xx_rate" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+    </div>
+
+    <div id="div_show_tab_7" style="display:none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Tomcat线程数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_thread_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Tomcat连接数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_connection_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">发送数据量(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_request_bytes_sent" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">接收数据量(MB/s)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_request_bytes_received" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">请求数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_request_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">错误请求数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="tomcat_request_error_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div>
+    </div>
+
+
+
+    <div id="div_show_tab_8" style="display:none;">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">JVM线程数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_thread_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">JVM CPU利用率</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_cpu_util" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">新生代垃圾回收次数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_gc_young_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">新生代垃圾回收花费时间(ms)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_gc_young_time" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">老年代垃圾回收次数</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_gc_old_count" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">老年代垃圾回收花费时间(ms)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_gc_old_time" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">堆内存使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_heap" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">堆内存使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_heap_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Perm Gen使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_pspermgen" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Perm Gen使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_pspermgen_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Eden Space使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_psedenspace" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Eden Space使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_psedenspace_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Old Gen使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_psoldgen" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">PS Old Gen使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_psoldgen_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">非堆内存使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_nonheap" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">非堆内存使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_nonheap_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Code Cache使用量(MB)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_codecache" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+                <!-- interactive chart -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">Code Cache使用率(%)</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jvm_memory_codecache_usage" class="chart" style="height: 200px;"></div>
+                    </div><!-- /.box-body-->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div>
+
+    </div>
+
+
+</section><!-- /.content -->
+
+<input type="hidden" id="q_type" name="q_type" value="1"/>
+<input type="hidden" id="ip" name="ip" value="${ip}"/>
+<input type="hidden" id="current_port" name="current_port"/>
+<input type="hidden" id="ipType" name="ipType" value="${ipType}"/>
+<input type="hidden" id="app_ports" name="app_ports" value='${app_ports}'/>
+<input type="hidden" id="userErp" name="userErp" value="${userErp}"/>
+<input type="hidden" id="network_incoming_packets_rate_data"/>
+<input type="hidden" id="network_outgoing_packets_rate_data"/>

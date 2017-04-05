@@ -1,0 +1,77 @@
+<script id="pause_alarm" type="text/template">
+    <form class="form form-horizontal">
+        <fieldset>
+        	<div class="form-group">
+        	    <label class="col-sm-3 control-label">资源IP</label>
+        	    <div class="col-sm-8">
+        	        <textarea name="ips" class="form-control" rows="8" placeholder="多个IP使用分隔符(支持空格,逗号,换行)" />
+    	        </div>
+	        </div>
+        	
+        	<div class="form-group">
+                <label class="col-sm-3 control-label">暂停告警项</label>
+                <div id="pause_alarm_meters" class="col-sm-8">
+                </div>
+            </div>
+        	
+            <div class="form-group">
+                <label class="col-sm-3 control-label">暂停开始时间</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="pauseTime" name="pauseTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',
+                        minDate:'%y-%M-{%d}',maxDate:'#F{$dp.$D(\'resumeTime\')}'})" />
+            		</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">暂停报警结束时间</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                    	<input class="form-control" type="text" id="resumeTime" name="resumeTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',
+                        minDate:'#F{$dp.$D(\'pauseTime\')}'})" />
+            		</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">暂停报警原因</label>
+                <div class="col-sm-8">
+            		<textarea class="form-control" type="text" id="pauseReason" name="pauseReason" required="required"/>
+                </div>
+            </div>
+<div class="form-group">
+  <div class="col-sm-2 col-sm-offset-4">
+    <button type="button" class="btn btn-primary">确认</button></div>
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button></div>
+</div>
+			
+        </fieldset>
+    </form>
+</script>
+
+<script id="resume_alarm" type="text/template">
+    <form class="form form-horizontal">
+        <fieldset>
+        	<div class="form-group">
+        	    <label class="col-sm-3 control-label">资源IP</label>
+        	    <div class="col-sm-8">
+        	        <textarea name="ips" class="form-control" rows="8" placeholder="多个IP使用分隔符(支持空格,逗号,换行)" />
+    	        </div>
+	        </div>
+        	
+        	<div class="form-group">
+                <label class="col-sm-3 control-label">恢复告警项</label>
+                <div id="resume_alarm_meters" class="col-sm-8">
+                </div>
+            </div>
+        	
+
+<div class="form-group">
+  <div class="col-sm-2 col-sm-offset-4">
+    <button type="button" class="btn btn-primary">确认</button></div>
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button></div>
+</div>
+        </fieldset>
+    </form>
+</script>

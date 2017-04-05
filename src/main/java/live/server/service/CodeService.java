@@ -93,12 +93,8 @@ public class CodeService {
 		
 		account.setCode_status(1);
 	    accountService.update(account);
-		
-	    Map<String, Object> loginMap = new HashMap<String, Object>();
-	    loginMap.put("id", uid);
-	    loginMap.put("pwd", password);
 	    
-	    accountService.login(JsonUtil.mapToJson(loginMap), resultMap);
+	    accountService.login(uid, password, resultMap);
 	}
 
 	private void createCode(String jsonStr, Map<String, Object> resultMap) {

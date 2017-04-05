@@ -1,0 +1,35 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Agent使用概况
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Agent概况</a></li>
+        <li class="active">Agent使用概况</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <!-- id, idc, freeAgentInstance, totalAgentInstance, usage -->
+                        <tr>
+                            <th>机房</th>
+                            <th>使用率</th>
+                            <th>空闲实例个数</th>
+                            <th>所有实例个数</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+</section><!-- /.content -->

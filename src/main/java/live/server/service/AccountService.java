@@ -75,7 +75,15 @@ public class AccountService {
 		return;
 	}
 
-	public void login(String jsonStr, Map<String, Object> resultMap) {
+	public void login(String id, String pwd, Map<String, Object> resultMap) {
+		Map<String, Object> loginMap = new HashMap<String, Object>();
+	    loginMap.put("id", id);
+	    loginMap.put("pwd", pwd);
+	    
+	    login(JsonUtil.mapToJson(loginMap), resultMap);
+	}
+	
+	private void login(String jsonStr, Map<String, Object> resultMap) {
 		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
 		
 		//参数验证

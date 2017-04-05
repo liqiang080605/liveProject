@@ -1,0 +1,51 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        用户列表
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">用户管理</a></li>
+        <li class="active">用户列表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th><input type="checkbox" id="all"></th>
+                            <th>用户名</th>
+                            <th>ERP</th>
+                            <th>权限</th>
+                            <th>部门</th>
+                            <th>邮箱</th>
+                            <th>电话</th>
+                            <th>创建时间</th>
+                            <th>更新时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<script id="tmpl_userdetails" type="text/template">
+    <form class="form form-horizontal">
+		<div class="col-xs-12">
+            <div class="form-group">
+              <label>详情</label>
+              <textarea id="detail" class="form-control" readonly="readonly" rows="12" placeholder="用户详情"></textarea>
+            </div>
+        </div>
+    </form>
+</script>

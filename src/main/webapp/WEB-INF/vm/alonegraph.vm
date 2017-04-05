@@ -1,0 +1,54 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        单IP图表
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">单IP图表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <input type="text" class="form-control" maxlength="15" id="hostip" name="hostip" placeholder="焦点移出输入框即开始查询!" />
+        </div>
+        <!-- /.col -->
+      </div>
+
+
+    <div class="row">
+        <div class="col-xs-6">
+          <p style="display:none" id="nodata_p" class="lead">无结果</p>
+
+          <div class="table-responsive">
+            <table id="table" class="table">
+              <tbody>
+              <tr style="display:none" id="monitor_pic_tr">
+                <th style="width:15%">监控图:</th>
+                <td id="monitor_pic_td"><a href="#">x.x.x.x</a></td>
+              </tr>
+              <tr style="display:none" id="idc_tr">
+                <th>所在机房:</th>
+                <td id="idc_td"><a href="#">xx</a></td>
+              </tr>
+              <tr style="display:none" id="host_ip_tr">
+                <th>所在宿主机:</th>
+                <td id="host_ip_td"><a href="#">x.x.x.x</a></td>
+              </tr>
+              <tr style="display:none" id="container_list_tr">
+                <th>容器列表:</th>
+                <td id="container_list_td"><a href="#">x.x.x.1</a><br /><a href="#">x.x.x.2</a><br /><a href="#">x.x.x.3</a><br /></td>
+              </tr>
+            </tbody></table>
+          </div>
+        </div>
+        
+    </div><!-- /.row -->
+    
+    
+</section><!-- /.content -->

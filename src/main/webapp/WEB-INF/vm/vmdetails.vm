@@ -1,0 +1,61 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        	资源概况
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">集群管理</a></li>
+        <li class="active">资源概况</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="form form-horizontal">
+		        <fieldset>
+		        	<div class="form-group">
+		                <label class="col-sm-2 control-label">机房</label>
+		                <div class="col-sm-10">
+		                    <input type="checkbox" name="allIdc" checked="true" id="selectAllIdc" onclick="selectIdc()"/>全选&nbsp;&nbsp;
+		                    <input type="checkbox" name="idc" id="idc" checked="true" value="lf1q" />廊坊一区 &nbsp;&nbsp;
+		                    <input type="checkbox" name="idc" id="idc" checked="true" value="lf2q" />廊坊二区 &nbsp;&nbsp; 
+						    <input type="checkbox" name="idc" id="idc" checked="true" value="mjq1q" />马驹桥一区&nbsp;&nbsp;
+						    <input type="checkbox" name="idc" id="idc" checked="true" value="mjq2q" />马驹桥二区 &nbsp;&nbsp;
+		                    <input type="checkbox" name="idc" id="idc" checked="true" value="lfysjk" />廊坊云数据库&nbsp;&nbsp;
+		                    <input type="checkbox" name="idc" id="idc" checked="true" value="mjqysjk" />马驹桥云数据库&nbsp;&nbsp;
+		                    <input type="checkbox" name="idc" id="idc" checked="true" value="mjq1qysjk" />马驹桥一区云数据库&nbsp;&nbsp;
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label">规格</label>
+		                	<label>CPU（核）</label>
+		                	<input type="text" name="cpu" id="cpu" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/> &nbsp;&nbsp;
+		                	<label>内存（M）</label>
+		                	<input type="text" name="memory" id="memory" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/> &nbsp;&nbsp;
+		                	<label>磁盘（G）</label>
+		                	<input type="text" name="disk" id="disk" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/> &nbsp;&nbsp;
+		                    <button id="query" type="button" class="btn btn-primary">查询</button>
+		            </div>
+		        	
+		        </fieldset>
+		        
+		         <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th style="width: 10%;">机房</th>
+                            <th style="width: 27%;">CPU(核)</th>
+                            <th style="width: 27%;">内存(M)</th>
+                            <th style="width: 26%;">磁盘(G)</th>
+                            <th style="width: 10%;">可创建的容器(个)</th>
+                        </tr>
+                        </thead>
+                    </table>
+            </form>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

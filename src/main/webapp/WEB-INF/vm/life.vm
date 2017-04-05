@@ -1,0 +1,40 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        容器操作历史
+    #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">容器历史</a></li>
+        <li class="active">容器操作历史</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-info">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="text" class="form-control" maxlength="50" id="hostip" name="hostip" />
+                        </div><!-- /.input group -->
+                    </div>
+                </div><!-- /.box-body -->
+
+                <div class="box" id="tbbox">
+                    <div class="box-body">
+                        <table id="table" class="table table-bordered table-hover" >
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+</section><!-- /.content -->

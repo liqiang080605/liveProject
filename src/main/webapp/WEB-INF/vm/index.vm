@@ -1,0 +1,159 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        首页
+        #*<small>Version 2.0</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">总览</li>
+    </ol>
+</section>
+<script type="application/javascript">
+    var dist = [] ;
+    #foreach( $item in ${distribution} )
+        var obj = new Array() ;
+        obj.push("$item.idc")
+        obj.push($item.total)
+        dist.push(obj)
+    #end
+    window.distribution = dist ;
+    
+    var distDept = [] ;
+    #foreach( $item in ${deptDistribution} )
+        var obj = new Array() ;
+        obj.push("$item.dept")
+        obj.push($item.total)
+        distDept.push(obj)
+    #end
+    window.deptDistribution = distDept ;  
+    
+    var distDocker = [] ;
+    #foreach( $item in ${distributionDockerList} )
+        var obj = new Array() ;
+        obj.push("$item.idc")
+        obj.push($item.total)
+        distDocker.push(obj)
+    #end
+    window.distributionDockerList = distDocker ;  
+    
+</script>
+<!-- Main content -->
+<section class="content">
+    <!-- Info boxes -->
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.66%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">物理机数</span>
+                    <span class="info-box-number">${machineCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.66%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">容器数</span>
+                    <span class="info-box-number">${dockerCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.66%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tomcat</span>
+                    <span class="info-box-number">${tomcatCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.66%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jvm</span>
+                    <span class="info-box-number">${jvmCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.67%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">nginx</span>
+                    <span class="info-box-number">${nginxCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+		</div>
+        <div class="col-sm-3 col-md-3 col-xs-12" style="width: 16.66%;">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">总用户数</span>
+                    <span class="info-box-number">${userCount}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <!-- Main row -->
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">物理机IDC分布图</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="chart-responsive">
+                        <div id="pieChart" style="height:400px"></div>
+                    </div><!-- ./chart-responsive -->
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">物理机部门分布图</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="chart-responsive">
+                        <div id="pieDeptChart" style="height:400px"></div>
+                    </div><!-- ./chart-responsive -->
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">容器IDC分布图</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body" style="display: none;">
+                    <div class="chart-responsive">
+                        <div id="pieDockerChart" style="height:400px"></div>
+                    </div><!-- ./chart-responsive -->
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-sm-6 col-xs-12">
+        </div>
+    </div><!-- /.row -->
+    
+    
+</section><!-- /.content -->

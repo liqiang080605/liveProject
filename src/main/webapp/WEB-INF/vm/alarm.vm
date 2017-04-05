@@ -1,0 +1,130 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        告警指标
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Tables</a></li>
+        <li class="active">Data tables</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="all"></th>
+                            <th>告警</th>
+                            <th>阈值</th>
+                            <th>级别</th>
+                            <th>匹配次数</th>
+                            <th>通知类型</th>
+                            <th>恢复通知</th>
+                            <th>更新时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section><!-- /.content -->
+
+
+<script id="tmpl_create" type="text/template">
+    <form class="form form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">监控项</label>
+                <div class="col-sm-10">
+                    <select class="form-control select2" id="meter_name" name="meter_name">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">规则设置</label>
+				<div class="col-xs-3">
+                    <select class="form-control select2" name="comparison_operator">
+                        <option value="gt">大于</option>
+                        <option value="lt">小于</option>
+                        <option value="eq">等于</option>
+                    </select>
+                </div>                
+                <div class="col-xs-7">
+                    <div class="input-group">
+                    <input class="form-control" type="text" id="threshold" name="threshold" value="95" placeholder="告警阈值,须为数值">
+                    	<span id="unit_str" class="input-group-addon">%</span>
+            		</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">匹配次数</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="periods" name="periods" maxlength="3" value="2" placeholder="连续匹配次数,须为数值">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">告警级别</label>
+                <div class="col-sm-10">
+                    <select class="form-control select2" name="alarm_level">
+                        <option value="Critical">严重</option>
+                        <option value="Warning">警告</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">通知方式</label>
+                <div class="col-sm-10">
+                    <select class="form-control select2" name="notify_type" id="notify_type">
+                        <option value="1">邮件</option>
+                        <option value="2">短信</option>
+                        <option value="0">邮件+短信</option>
+                        <option value="3">HTTP(POST)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">恢复通知</label>
+                <div class="col-sm-10">
+                <label>
+                  <input type="checkbox" id="ok_msg" name="ok_msg" class="flat-red" >
+                  	是否接收恢复消息
+                </label>
+                </div>
+             </div>
+            <div class="form-group" id="div_http_alarm_url">
+                <label class="col-sm-2 control-label">告警URL</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="http_alarm_url" name="http_alarm_url" maxlength="200" placeholder="告警发生时需要触发的接口">
+                    <span class="text-yellow">接口需支持POST请求,预期收到的消息内容为:<a href="/help/monitor_http_msg.html" target="_blank">HTTP Message.</a></span>
+                </div>
+            </div>
+            <div class="form-group" id="div_http_ok_url">
+                <label class="col-sm-2 control-label">恢复URL</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="http_ok_url" name="http_ok_url" maxlength="200" placeholder="告警恢复时需要触发的接口">
+                    <span class="text-yellow">接口需支持POST请求,预期收到的消息内容为:<a href="/help/monitor_http_msg.html" target="_blank">HTTP Message.</a></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 col-sm-offset-4">
+                    <input type="hidden" name="gid" value="${gid}" /><button type="button" class="btn btn-primary">确认</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>

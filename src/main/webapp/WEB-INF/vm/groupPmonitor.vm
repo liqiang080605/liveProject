@@ -1,0 +1,40 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+                           分组性能图表
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">分组性能</a></li>
+        <li class="active">性能图表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                <select class="select" id="group_user" name="group_user" style="width: 200px;">
+                    <option value="">无</option>
+                </select>
+                <select class="select" id="sample" name="sample" style="width: 200px;">
+                    <option value="">无</option>
+                </select>
+                <input id="stime" name="stime" class="Wdate" value="" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'default',maxDate:'#F{$dp.$D(\'etime\')||\'%y-%M-%d %H:%m:%s\'}'})"/>&nbsp;到
+                <input id="etime" name="etime" class="Wdate" value="" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'default',minDate:'#F{$dp.$D(\'stime\')}',maxDate:'%y-%M-%d %H:%m:%s'})"/>&nbsp;&nbsp;
+                <button id="query" type="button" class="btn btn-primary">Submit</button>
+                <button id="download" type="button" class="btn btn-primary">Download</button>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <div class="box">
+            	<div class="box-body">
+            		<div id="container" style="min-width:400px;height:700px"></div>
+                </div><!-- /.box-body -->
+            </div>
+            
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

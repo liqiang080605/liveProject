@@ -1,0 +1,100 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        服务列表
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">服务列表</a></li>
+        <li class="active">服务列表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th>机房</th>
+                            <th>IP地址</th>
+                            <th>服务列表</th>
+                            <th>更新时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<script id="tmpl_create" type="text/template">
+  <form class="form-horizontal"> 
+   <div class="form-group">
+    <label class="col-sm-2 control-label">IP地址</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" name="ip" placeholder="IP地址" />
+    </div>
+   </div> 
+   
+   <div class="form-group">
+    <label class="col-sm-2 control-label">端口</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" name="port" placeholder="端口信息" />
+    </div>
+   </div>
+   
+   <div class="form-group">
+    <label class="col-sm-2 control-label">service</label>
+    <div class="col-sm-10">
+    <select name="app_types" class="form-control">
+         <option value="tomcat">tomcat</option>
+         <option value="jvm">jvm</option>
+         <option value="nginx">nginx</option>
+     </select>
+    </div>
+   </div>
+   
+   <div class="form-group">
+    <label class="col-sm-2 control-label">机器类型</label>
+    <div class="col-sm-10">
+    <select name="type" class="form-control">
+         <option value="0">物理机</option>
+         <option value="1">容器</option>
+     </select>
+    </div>
+   </div>
+   
+   <div class="form-group">
+    <label class="col-sm-2 control-label">机房</label>
+    <div class="col-sm-10">
+    <select name="idc" class="form-control">
+         <option value="永丰">永丰</option>
+         <option value="廊坊">廊坊</option>
+         <option value="廊坊联通机房">廊坊联通机房</option>
+         <option value="黄村">黄村</option>
+         <option value="马驹桥">马驹桥</option>
+         <option value="印尼">印尼</option>
+         <option value="其他机房">其他机房</option>
+         <option value="广州">广州</option>
+         <option value="华北">华北</option>
+         <option value="华东">华东</option>
+     </select>
+    </div>
+   </div> 
+   <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-4">
+     <button type="button" class="btn btn-primary">确认</button>
+    </div>
+    <div class="col-sm-5">
+     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    </div>
+   </div> 
+  </form>
+</script>

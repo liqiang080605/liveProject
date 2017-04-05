@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>登陆界面</title>
+	<link rel="stylesheet" type="text/css" href="static/css/login.min.css">
+	<script src="/static/js/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	
+</head>
+<body>
+	<div class="login">
+	    <div class="valign_wrap">
+	        <!-- +.withqrc 切换 -->
+	        <div class="login_pop">
+	            <div class="login_pop_inner login_withpc">
+	                <!--[if lt IE 8]><span class="login_withpc_logo"></span><![endif]-->
+	                <form class="login_form" id="loginForm">
+	                    <!-- +.warn +.focus +.hide -->
+	                    <div class="login_form_row account"><label class="login_form_label"><i class="login_form_icon"></i>
+	                        <div class="login_form_inp"><input class="login_form_inp_input" type="text" id="username" name="username" placeholder="用户名">
+	                        </div>
+	                    </label></div>
+	                    <div class="login_form_row password"><label class="login_form_label"><i class="login_form_icon"></i>
+	                        <div class="login_form_inp"><input class="login_form_inp_input" type="password" id="password" name="password" placeholder="密码">
+	                        </div>
+	                    </label></div>
+	
+	                    <div class="login_form_row formsubmit"><input class="formsubmit_btn" type="button" onclick="login()" value="登&nbsp;&nbsp;录"></div>
+	                    <div class="login_form_row warntip hide"><i class="warntip_icon"></i><span class="warntip_text"></span>
+	                    </div>
+	                </form>
+	                <a class="login_style" href="javascript:;"></a>
+	            </div>
+	        </div>
+	    </div>
+	    <!--[if lt IE 8]><span class="valign_after"></span><![endif]-->
+  	</div>
+	
+	<script type="text/javascript">
+	
+	function login() {
+		$.ajax({
+            url:"/login/in",
+            data:$("#loginForm").serialize(),
+            type:"post",
+            success:function(data){//ajax返回的数据
+            	var obj = JSON.parse(data);
+                if(data.success  == true) {
+            		window.location.href='/index';
+                } else {
+                	alert("用户名或密码不正确")
+                }
+            }
+       });  
+	}
+		
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,386 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+                              平台概况
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">监控管理</a></li>
+        <li class="active">平台概况</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">物理机概况
+	<div class="row">
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:warningList(0)">
+                		<span class="info-box-text">warning</span>
+                	</a>
+                    <span class="info-box-number" id="vm_warning">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+	                <a href="javascript:;" onclick="javascript:criticalList(0)">
+	                    <span class="info-box-text">critical</span>
+	                </a>
+                    <span class="info-box-number" id="vm_critical">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        
+        <div class="col-sm-3 col-md-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:handledList(0)">
+	                    <span class="info-box-text">handled</span>
+	                </a>
+                    <span class="info-box-number" id="vm_handled">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:unmonitorList(0)">
+	                    <span class="info-box-text">unmonitor</span>
+	                </a>
+                    <span class="info-box-number" id="vm_unmonitor">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+     
+     	<div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:okList(0)">
+	                    <span class="info-box-text">ok</span>
+	                </a>
+                    <span class="info-box-number" id="vm_ok">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+     
+        <div class="col-sm-3 col-md-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:pausedList(0)">
+	                    <span class="info-box-text">paused</span>
+	                </a>
+                    <span class="info-box-number" id="vm_paused">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:ungroupList(0)">
+	                    <span class="info-box-text">ungroup</span>
+	                </a>
+                    <span class="info-box-number" id="vm_ungroup">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:allList(0)">
+	                    <span class="info-box-text">all</span>
+	                </a>
+                    <span class="info-box-number" id="vm_all">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
+</section>
+
+<section class="content">容器概况
+	<div class="row">
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:warningList(1)">
+                		<span class="info-box-text">warning</span>
+                	</a>
+                    <span class="info-box-number" id="container_warning">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+	                <a href="javascript:;" onclick="javascript:criticalList(1)">
+	                    <span class="info-box-text">critical</span>
+	                </a>
+                    <span class="info-box-number" id="container_critical">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        
+        <div class="col-sm-3 col-md-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:handledList(1)">
+	                    <span class="info-box-text">handled</span>
+	                </a>
+                    <span class="info-box-number" id="container_handled">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:unmonitorList(1)">
+	                    <span class="info-box-text">unmonitor</span>
+	                </a>
+                    <span class="info-box-number" id="container_unmonitor">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+     
+     	<div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:okList(1)">
+	                    <span class="info-box-text">ok</span>
+	                </a>
+                    <span class="info-box-number" id="container_ok">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+     
+        <div class="col-sm-3 col-md-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-navy"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:pausedList(1)">
+	                    <span class="info-box-text">paused</span>
+	                </a>
+                    <span class="info-box-number" id="container_paused">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:ungroupList(1)">
+	                    <span class="info-box-text">ungroup</span>
+	                </a>
+                    <span class="info-box-number" id="container_ungroup">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                	<a href="javascript:;" onclick="javascript:allList(1)">
+	                    <span class="info-box-text">all</span>
+	                </a>
+                    <span class="info-box-number" id="container_all">0</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
+</section>
+
+<script id="warning_alarm" type="text/template" class="content" style="width:1000px">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_warn" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th style="width:12%">IP</th>
+                            <th style="width:12%">服务器类型</th>
+                            <th style="width:26%">告警摘要</th>
+                            <th style="width:17%">应用信息</th>
+                            <th style="width:17%">分组信息</th>
+                            <th style="width:16%">运维人</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="handled_alarm" type="text/template" class="content" style="width:100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_handled" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th style="width:10%">IP</th>
+                            <th style="width:7%">服务器类型</th>
+                            <th style="width:23%">告警摘要</th>
+                            <th style="width:17%">应用信息</th>
+                            <th style="width:16%">分组信息</th>
+                            <th style="width:12%">运维人</th>
+                            <th style="width:15%">handle人员ERP</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="paused_alarm" type="text/template" class="content" style="width:100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_paused" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th style="width:8%">IP</th>
+                            <th style="width:5%">服务器类型</th>
+                            <th style="width:7%">告警类型</th>
+                            <th style="width:15%">应用信息</th>
+                            <th style="width:15%">分组信息</th>
+                            <th style="width:10%">运维人</th>
+                            <th style="width:10%">开始时间</th>
+                            <th style="width:10%">结束时间</th>
+                            <th style="width:10%">原因</th>
+                            <th style="width:10%">pause人员ERP</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="all_resource" type="text/template" class="content" style="width:100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_all" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th style="width: 10%;">IP</th>
+                            <th style="width: 10%;">服务器类型</th>
+                            <th style="width: 10%;">服务</th>
+                            <th style="width: 10%;">状态</th>
+                            <th style="width: 10%;">时间</th>
+                            <th style="width: 16%;">详情</th>
+                            <th style="width: 12%;">应用信息</th>
+                            <th style="width: 12%;">分组信息</th>
+                            <th style="width: 10%;">运维人</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="unmonitor_resource" type="text/template" class="content" style="width:100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_all" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th style="width:18%">IP</th>
+                            <th style="width:17%">服务器类型</th>
+                            <th style="width:25%">应用信息</th>
+                            <th style="width:25%">分组信息</th>
+                            <th style="width:15%">运维人</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="ungroup_resource" type="text/template" class="content" style="width: 100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_all" class="table table-bordered table-hover" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th style="width: 10%">IP</th>
+                            <th style="width: 10%">服务器类型</th>
+                            <th style="width: 10%">服务</th>
+                            <th style="width: 10%">状态</th>
+                            <th style="width: 10%">时间</th>
+                            <th style="width: 20%">详情</th>
+                            <th style="width: 20%">应用信息</th>
+                            <th style="width: 10%">运维人</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+
+<script id="ok_resource" type="text/template" class="content" style="width: 100%">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table_all" class="table table-bordered table-hover" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th style="width: 10%;">IP</th>
+                            <th style="width: 10%;">服务器类型</th>
+                            <th style="width: 10%;">服务</th>
+                            <th style="width: 10%;">状态</th>
+                            <th style="width: 10%;">时间</th>
+                            <th style="width: 16%;">详情</th>
+                            <th style="width: 12%;">应用信息</th>
+                            <th style="width: 12%;">分组信息</th>
+                            <th style="width: 10%;">运维人</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><
+</script>
+

@@ -1,0 +1,71 @@
+.p15{
+    padding: 15px;
+}
+.content-wrapper{
+    background-image: -webkit-radial-gradient(10% 0,farthest-side ellipse,rgba(229,245,252,.5) 30%,rgba(206,255,229,.5) 66%,rgba(206,222,247,.5));
+    background-image: -moz-radial-gradient(10% 0,farthest-side ellipse,rgba(229,245,252,.5) 30%,rgba(206,255,229,.5) 66%,rgba(206,222,247,.5));
+    background-image: -ms-radial-gradient(10% 0,farthest-side ellipse,rgba(229,245,252,.5) 30%,rgba(206,255,229,.5) 66%,rgba(206,222,247,.5));
+    background-image: -o-radial-gradient(10% 0,farthest-side ellipse,rgba(229,245,252,.5) 30%,rgba(206,255,229,.5) 66%,rgba(206,222,247,.5));
+    background-image: radial-gradient(10% 0,farthest-side ellipse,rgba(229,245,252,.5) 30%,rgba(206,255,229,.5) 66%,rgba(206,222,247,.5));
+}
+.skin-blue .main-header .navbar{
+    background-image: -webkit-linear-gradient(left,#439BCB 0,#3c8dbc 100%);
+    background-image: -moz-linear-gradient(left,#439BCB 0,#3c8dbc 100%);
+    background-image: -ms-linear-gradient(left,#439BCB 0,#3c8dbc 100%);
+    background-image: -o-linear-gradient(left,#439BCB 0,#3c8dbc 100%);
+    background-image: linear-gradient(left,#439BCB 0,#3c8dbc 100%);
+}
+.navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a{
+    overflow: visible;
+}
+.navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a{
+    white-space: normal;
+    text-align:justify;
+    text-justify:inter-word;
+}
+.main-sidebar, .left-side,.main-header .logo{
+    width: 200px;
+}
+.content-wrapper, .right-side, .main-footer,.main-header>.navbar{
+    margin-left: 200px;
+}
+body{
+    font-family: Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+.content-header>h1{
+    font-size: 16px;
+    display: inline-block;
+    background-color: #6EBBE5;
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.box-shadow{
+    box-shadow: 0px 0px 10px #666;;
+}
+.navbar-nav>.messages-menu>.dropdown-menu{
+    width: 240px;
+}
+.navbar-nav>.messages-menu>.dropdown-menu>li>span{
+    padding: 10px;
+    line-height: 18px;
+    display: block;
+}
+table.dataTable{
+    margin-top: 10px !important;
+}
+.table thead tr th {
+    background: #DDE7F6;
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    border:0;
+}
+tbody td{
+    font-size: 14px;
+}
+.table thead tr th  input{
+}

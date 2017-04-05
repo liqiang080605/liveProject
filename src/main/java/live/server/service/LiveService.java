@@ -57,11 +57,63 @@ public class LiveService {
 			reportstatus(jsonStr, resultMap);
 		} else if (cmd.equals("exitroom")) {
 			exitroom(jsonStr, resultMap);
+		} else if (cmd.equals("roomexpertslist")) {
+			roomexpertslist(jsonStr, resultMap);
 		} else {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Cmd is error.");
 			return;
 		}
+	}
+
+	private void roomexpertslist(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("roomnum")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		int roomnum = Integer.valueOf(String.valueOf(map.get("roomnum")));
+		
+		Account account = accountService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(!accountService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		InteractAvRoom iavRoom = new InteractAvRoom();
+		iavRoom.setAv_room_id(roomnum);
+		List<InteractAvRoom> list = iavRoomService.query(iavRoom);
+		
+		resultMap.put("errorCode",Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> memList = new ArrayList<Map<String, Object>>();
+		for(InteractAvRoom iav : list) {
+			Account tmpAccount = accountService.queryById(iav.getUid());
+			if(tmpAccount == null || tmpAccount.getRole() != 10) {
+				continue;
+			}
+			
+			Map<String, Object> iavMap = new HashMap<String, Object>();
+			iavMap.put("id", iav.getUid());
+			iavMap.put("role", iav.getRole());
+			memList.add(iavMap);
+		}
+		
+		dataMap.put("total", memList.size());
+		dataMap.put("idlist", memList);
+		resultMap.put("data", dataMap);
 	}
 
 	private void exitroom(String jsonStr, Map<String, Object> resultMap) {
@@ -250,7 +302,7 @@ public class LiveService {
 		}
 		
 		InteractAvRoom iavRoom = new InteractAvRoom();
-		iavRoom.setUid(account.getUid());
+		//iavRoom.setUid(account.getUid());
 		iavRoom.setAv_room_id(roomnum);
 		iavRoom.setOffset(index);
 		iavRoom.setLimit(size);

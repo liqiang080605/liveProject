@@ -1,0 +1,263 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        物理机列表
+        #*<small>主机、IP</small>*#
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">资源列表</a></li>
+        <li class="active">物理机列表</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <!-- id, ip, idc, model, power_u, power_p, update_time, create_time -->
+                        <tr>
+                            <th><input type="checkbox" id="all"></th>
+                            <th>机房</th>
+                            <th>IP地址</th>
+                            <th>状态</th>
+                            <th>使用部门</th>
+                            <th>应用信息</th>
+                            <th>品牌</th>
+                            <th>更新时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+
+
+<script id="tmpl_create" type="text/template">
+  <form class="form-horizontal"> 
+   <div class="form-group">
+    <label class="col-sm-2 control-label">IP地址</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" name="ip" placeholder="IP地址" />
+    </div>
+   </div> 
+   <div class="form-group">
+    <label class="col-sm-2 control-label">机房</label>
+    <div class="col-sm-10">
+    <select name="idc" class="form-control">
+         <option value="永丰">永丰</option>
+         <option value="廊坊">廊坊</option>
+         <option value="廊坊联通机房">廊坊联通机房</option>
+         <option value="黄村">黄村</option>
+         <option value="马驹桥">马驹桥</option>
+         <option value="印尼">印尼</option>
+         <option value="其他机房">其他机房</option>
+         <option value="广州">广州</option>
+         <option value="华北">华北</option>
+         <option value="华东">华东</option>
+     </select>
+    </div>
+   </div> 
+   <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-4">
+     <button type="button" class="btn btn-primary">确认</button>
+    </div>
+    <div class="col-sm-5">
+     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    </div>
+   </div> 
+  </form>
+</script>
+
+
+<script id="tmpl_detail" type="text/template">
+  <form class="form-horizontal">
+   <div class="form-group">
+    <label class="col-sm-3 control-label">IP地址</label>
+    <div class="col-sm-9">
+     <span id="detail_ip"></span>
+    </div>
+   </div> 
+   <div class="form-group">
+    <label class="col-sm-3 control-label">Agent所在机房</label>
+    <div class="col-sm-9">
+     <span id="detail_agent_idc"></span>
+    </div>
+   </div> 
+   <div class="form-group">
+    <label class="col-sm-3 control-label">机房</label>
+    <div class="col-sm-9">
+     <span id="detail_idc"></span>
+    </div>
+   </div>   
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">研发经理</label>
+    <div class="col-sm-9">
+     <span id="detail_rdmanager"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label">使用部门</label>
+    <div class="col-sm-9">
+     <span id="detail_dept"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">部门总监</label>
+    <div class="col-sm-9">
+     <span id="detail_dept_director"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">项目名称</label>
+    <div class="col-sm-9">
+     <span id="detail_project_name"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">项目描述</label>
+    <div class="col-sm-9">
+     <span id="detail_project_desc"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">IP类型</label>
+    <div class="col-sm-9">
+     <span id="detail_ip_type"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">服务类型</label>
+    <div class="col-sm-9">
+     <span id="detail_service_type"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">配置类型</label>
+    <div class="col-sm-9">
+     <span id="detail_cfg_type"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">上架批次</label>
+    <div class="col-sm-9">
+     <span id="detail_shelve_count"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label">分配状态</label>
+    <div class="col-sm-9">
+     <span id="detail_distribute_status"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">资产编号</label>
+    <div class="col-sm-9">
+     <span id="detail_asset_number"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label">机柜位置</label>
+    <div class="col-sm-9">
+     <span id="detail_cabinet_position"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label">SN号</label>
+    <div class="col-sm-9">
+     <span id="detail_sn_number"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label">配置</label>
+    <div class="col-sm-9">
+     <span id="detail_cpu"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">内存</label>
+    <div class="col-sm-9">
+     <span id="detail_men"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">磁盘</label>
+    <div class="col-sm-9">
+     <span id="detail_disk"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">使用人</label>
+    <div class="col-sm-9">
+     <span id="detail_r_usr"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">联系方式</label>
+    <div class="col-sm-9">
+     <span id="detail_mobile"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">系统类型</label>
+    <div class="col-sm-9">
+     <span id="detail_sys_type"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">应用环境</label>
+    <div class="col-sm-9">
+     <span id="detail_app_eniv"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">分配时间</label>
+    <div class="col-sm-9">
+     <span id="detail_distribute_time"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">环境类型</label>
+    <div class="col-sm-9">
+     <span id="detail_eniv_type"></span>
+    </div>
+   </div>  
+   <div class="form-group">
+    <label class="col-sm-3 control-label" style="display: none">服务器类型</label>
+    <div class="col-sm-9">
+     <span id="detail_server_type"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">是否告警</label>
+    <div class="col-sm-9">
+     <span id="detail_is_need_monitor"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">是否已告警</label>
+    <div class="col-sm-9">
+     <span id="detail_is_monitor"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">备注</label>
+    <div class="col-sm-9">
+     <span id="detail_remark"></span>
+    </div>
+   </div>  
+   <div class="form-group" style="display: none">
+    <label class="col-sm-3 control-label">详细备注</label>
+    <div class="col-sm-9">
+     <span id="detail_detail_remark"></span>
+    </div>
+   </div>  
+  </form>
+</script>
