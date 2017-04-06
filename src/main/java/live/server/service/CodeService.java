@@ -124,7 +124,7 @@ public class CodeService {
 		Code code = null;
 		
 		if(account.getRole() < 100) {
-			resultMap.put("errorCode",Constants.ERR_NO_CODEAUTH);
+			resultMap.put("errorCode",Constants.ERR_CODE_NOPOWERAUTH);
 			resultMap.put("errorInfo", "User has no auth to create code.");
 			return;
 		}

@@ -18,6 +18,7 @@ import live.server.Util.JsonUtil;
 import live.server.service.AccountService;
 import live.server.service.CodeService;
 import live.server.service.LiveService;
+import live.server.service.PPTService;
 
 @Controller
 public class RestController {
@@ -31,6 +32,9 @@ public class RestController {
 	
 	@Autowired
 	CodeService codeService;
+	
+	@Autowired
+	PPTService pptService;
 	
 	@RequestMapping(value = "index.php", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -47,6 +51,8 @@ public class RestController {
 				liveService.exec(cmd, jsonStr, resultMap);
 			} else if (svc.equals("code")) {
 				codeService.exec(cmd, jsonStr, resultMap);
+			} else if (svc.equals("ppt")) {
+				pptService.exec(cmd, jsonStr, resultMap);
 			}
 		} catch (Exception e) {
 			log.error("Failed to exec cmd. " + "Request svc is " + 

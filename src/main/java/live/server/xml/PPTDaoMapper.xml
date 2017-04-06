@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.server.dao.PPTDao">
+
+	<resultMap id="ppt" type="live.server.model.PPTInfo">
+		<id property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="name" column="name" />
+		<result property="uuid" column="uuid" />
+		<result property="server_url" column="server_url" />
+		<result property="customer_url" column="customer_url" />
+		<result property="create_time" column="create_time" />
+	</resultMap>
+
+	<sql id="base_column">
+		id, uid, name, uuid, server_url, customer_url, create_time
+	</sql>
+	
+	<insert id="insert">
+	    INSERT INTO
+		t_ppt(
+		<include refid="base_column" />
+		)
+		VALUES(NULL, #{uid}, #{name}, #{uuid}, #{server_url}, #{customer_url},#{create_time})
+	</insert>
+	
+	<select id="count" resultType="int">
+		select count(*) from t_ppt
+	</select>
+	
+	<select id="query" resultMap="ppt">
+		select * from t_ppt
+		where 1 = 1
+		<if test="uid != null and uid != ''">
+			and uid = #{uid}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="uuid != null and uuid != ''">
+			and uuid = #{uuid}
+		</if>
+		<if test="server_url != null and server_url != ''">
+			and server_url = #{server_url}
+		</if>
+		<if test="customer_url != null and customer_url != ''">
+			and customer_url = #{customer_url}
+		</if>
+		ORDER BY id DESC 
+		<if test="offset != null and offset != ''">
+			LIMIT #{offset}, #{limit};
+		</if>
+	</select>
+	
+	<delete id="deleteByUUID">
+		delete from t_ppt
+		where uuid = #{uuid}
+	</delete>
+</mapper>

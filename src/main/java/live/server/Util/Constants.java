@@ -12,6 +12,8 @@ public interface Constants {
 	
 	Integer ERR_TOKEN_EXPIRE = 10009;
 	
+	Integer ERR_AV_ROOM_NOT_EXIST = 10010;
+	
 	Integer ERR_SERVER = 90000;
 	
 	Integer ERR_SUCCESS = 0;
@@ -22,9 +24,11 @@ public interface Constants {
 	
 	Integer ERR_CODE_CHECK = 30003;
 	
-	Integer ERR_NO_CODEAUTH = 30004;
+	Integer ERR_CODE_NOPOWERAUTH = 30004;
 
-	Integer ERR_AV_ROOM_NOT_EXIST = 10010;
-
-	Integer ERR_AUTH_CREATEROOM = 40001;
+	Integer ERR_CREATEROOM_NOPOWER = 40001;
+	
+	Integer ERR_PPT_EXIST = 50001;
+	
+	Integer ERR_PPT_NOPOWER = 50002;
 }

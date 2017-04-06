@@ -197,3 +197,16 @@ create unique index uid_expired on t_code
 
 
 alter table t_account add column code_status int(10) not null default 0 comment '验证状态';
+
+
+create table t_ppt
+(
+   id                   int not null auto_increment,
+   uid                  varchar(100) not null,
+   name                 varchar(100) not null,
+   uuid                 varchar(100) not null,
+   server_url           varchar(200) not null,
+   customer_url         varchar(200) not null,
+   create_time          varchar(15) not null,
+   primary key (id)
+);

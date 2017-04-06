@@ -552,7 +552,7 @@ public class LiveService {
 		}
 		
 		if(account.getRole() < UserRole.ADMIN.getRole()) {
-			resultMap.put("errorCode",Constants.ERR_AUTH_CREATEROOM);
+			resultMap.put("errorCode",Constants.ERR_CREATEROOM_NOPOWER);
 			resultMap.put("errorInfo", "User has no pemission to create room.");
 			return;
 		}
