@@ -210,3 +210,6 @@ create table t_ppt
    create_time          varchar(15) not null,
    primary key (id)
 );
+
+--2017/04/10
+alter table t_account add column email varchar(50) default null COMMENT '邮箱';

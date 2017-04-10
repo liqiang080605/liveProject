@@ -14,4 +14,6 @@ public interface AccountDao {
 
 	public int logout(Account account);
 
+	public Account queryByEmail(String email);
+
 }

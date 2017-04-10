@@ -98,6 +98,9 @@ public class AccountService {
 		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
+		if(account == null) {
+			account = accountDao.queryByEmail(id);
+		}
 		
 		//账号验证
 		if(account == null) {
@@ -140,6 +143,7 @@ public class AccountService {
 			dataMap.put("token", account.getToken());
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("codeStatus", account.getCode_status());
+			dataMap.put("id", account.getUid());
 			resultMap.put("data", dataMap);
 			return;
 		}
@@ -168,6 +172,7 @@ public class AccountService {
 			dataMap.put("token", account.getToken());
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("role", account.getRole());
+			dataMap.put("id", account.getUid());
 			resultMap.put("data", dataMap);
 		}
 	}
@@ -182,6 +187,11 @@ public class AccountService {
 		
 		String id = String.valueOf(map.get("id"));
 		String pwd = String.valueOf(map.get("pwd"));
+		
+		String email = null;
+		if(map.get("email") != null) {
+			email = String.valueOf(map.get("email"));
+		}
 		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
@@ -202,6 +212,7 @@ public class AccountService {
 		account.setState(0);
 		account.setRole(UserRole.USER.getRole());
 		account.setCode_status(0);
+		account.setEmail(email);
 		
 		int count = accountDao.insert(account);
 		

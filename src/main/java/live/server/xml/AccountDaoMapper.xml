@@ -14,11 +14,12 @@
 		<result property="last_request_time" column="last_request_time" />
 		<result property="role" column="role" />
 		<result property="code_status" column="code_status" />
+		<result property="email" column="email" />
 	</resultMap>
 
 	<sql id="base_column">
 		uid, pwd, token, state, user_sig, register_time, login_time,
-		logout_time, last_request_time, role,code_status
+		logout_time, last_request_time, role,code_status,email
 	</sql>
 	
 	<insert id="insert">
@@ -27,11 +28,15 @@
 		<include refid="base_column" />
 		)
 		VALUES(#{uid}, #{pwd}, #{token}, #{state}, #{user_sig}, #{register_time},
-		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status})
+		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status},#{email})
 	</insert>
 	
 	<select id="queryById" resultMap="account">
 		select * from t_account where uid = #{uid}
+	</select>
+	
+	<select id="queryByEmail" resultMap="account">
+		select * from t_account where email = #{email}
 	</select>
 	
 	<select id="queryByToken" resultMap="account">
@@ -67,6 +72,9 @@
 		</if>
 		<if test="code_status != null and code_status != ''">
 			, code_status = #{code_status}
+		</if>
+		<if test="email != null and email != ''">
+			, email = #{email}
 		</if>
 		where uid = #{uid}
 	</update>

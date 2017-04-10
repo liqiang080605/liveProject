@@ -22,6 +22,8 @@ public class Account {
 	String last_request_time;
 	
 	Integer code_status;
+	
+	String email;
 
 	public String getUid() {
 		return uid;
@@ -109,6 +111,14 @@ public class Account {
 
 	public void setCode_status(Integer code_status) {
 		this.code_status = code_status;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
