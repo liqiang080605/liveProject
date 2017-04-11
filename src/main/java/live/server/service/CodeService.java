@@ -1,5 +1,8 @@
 package live.server.service;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
+import live.server.Util.DateUtils;
 import live.server.Util.JsonUtil;
 import live.server.dao.CodeDao;
 import live.server.model.Account;
@@ -160,5 +164,46 @@ public class CodeService {
 		dataMap.put("code", code.getCode_value());
 		dataMap.put("time", EXPIRED_TIME - (System.currentTimeMillis()/1000 - Integer.valueOf(code.getCreate_time())));
 		resultMap.put("data", dataMap);
+	}
+
+	public int countAllCodes() {
+		return codeDao.countAll();
+	}
+
+	public List<Code> queryAllCodeByOffset(int offset, int limit) {
+		Code code = new Code();
+		code.setOffset(offset);
+		code.setLimit(limit);
+		
+		List<Code> codeList = codeDao.queryAllCodeByOffset(code);
+		
+		for(Code c : codeList) {
+			long time = Long.valueOf(c.getCreate_time()) * 1000l;
+			Date d = new Date(time);
+			
+			c.setCreate_time(DateUtils.formatDate(d, DateUtils.YYYY_MM_DD_HH_MM_SS));
+		}
+		
+		Collections.sort(codeList, new Comparator<Code>() {
+
+			@Override
+			public int compare(Code o1, Code o2) {
+				if(o1.getCreate_time().compareTo(o2.getCreate_time()) > 0) {
+					return -1;
+				}
+				
+				return 1;
+			}
+		});
+		
+		return codeList;
+	}
+
+	public void create(String uid, Map<String, Object> map) {
+		Account account = accountService.queryById(uid);
+		Map<String, Object> tmpMap = new HashMap<String, Object>();
+		tmpMap.put("token", account.getToken());
+		
+		createCode(JsonUtil.mapToJson(tmpMap), map);
 	}
 }

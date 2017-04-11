@@ -43,13 +43,13 @@
 	
 	function login() {
 		$.ajax({
-            url:"/login/in",
+            url:"/console/login/in",
             data:$("#loginForm").serialize(),
             type:"post",
             success:function(data){//ajax返回的数据
             	var obj = JSON.parse(data);
-                if(data.success  == true) {
-            		window.location.href='/index';
+                if(obj.success  == true) {
+            		window.location.href='/console/code';
                 } else {
                 	alert("用户名或密码不正确")
                 }

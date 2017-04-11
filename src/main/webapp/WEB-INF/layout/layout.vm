@@ -31,61 +31,14 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                 
-                	<li class="user user-menu">
-                        <a href="http://ipd.jd.com" class="dropdown-toggle">
-                        	<img title="ipd" alt="ipd" src="static/dist/img/ipd.png" style="width: 20px;">
-                        </a>
-                    </li>
-                    
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell-o" style="margin: 3px 0;"></i>&nbsp;【7*24】监控
-                        </a>
-                        <ul class="dropdown-menu box-shadow">
-                            <li class="header text-center">【7*24】监控 </li>
-                            <li>
-                                <span><i class="fa fa-user text-aqua"></i>&nbsp;&nbsp;&nbsp;ERP：<b>JDJK</b></span>
-                            </li>
-                            <li>
-                                <span><i class="fa fa-envelope text-aqua"></i>&nbsp;&nbsp;&nbsp;邮箱：<a href="mailto:sqjiankong@jd.com">sqjiankong@jd.com</a></span>
-                            </li>
-                            <li>
-                                <span><i class="fa fa-send text-aqua"></i>&nbsp;&nbsp;&nbsp;电话：15651376599</span>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
-                            <i class="fa fa-envelope-o" style="margin: 3px 0;"></i>&nbsp;联系我们
-                        </a>
-                        <ul class="dropdown-menu box-shadow">
-                            <li class="header text-center">联系我们</li>
-                            <li>
-                                <span><i class="fa fa-user text-aqua"></i>&nbsp;&nbsp;&nbsp;研发团队：<b>CSP@南京</b></span>
-                            </li>
-                            <li>
-                                <span><i class="fa fa-envelope text-aqua"></i>&nbsp;&nbsp;&nbsp;邮箱：<a href="mailto:csp@jd.com">csp@jd.com</a></span>
-                            </li>
-                        </ul>
-                    </li>
-					-->
-                    <li>
-                        <a href="${rootPath}help" target="_blank" class="dropdown-toggle">
-                            <i class="fa fa-question-circle" style="margin: 3px 0;"></i>&nbsp;帮助
-                        </a>
-                    </li>
-
-
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="${rootPath}static/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                            <span class="hidden-xs">${user.name}</span>
+                            <img src="/static/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                            <span class="hidden-xs">${username}</span>
                         </a>
                     </li>
                     <li class="user user-menu">
-                        <a href="/user/logout" title="退出"><i class="glyphicon glyphicon-log-out" style="margin: 3px 0;"></i></a>
+                        <a href="/console/login/out" title="退出"><i class="glyphicon glyphicon-log-out" style="margin: 3px 0;"></i></a>
                     </li>
 
                 </ul>
@@ -111,7 +64,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; 2014-2017 <a href="mailto:csp@jd.com">商城研发-基础平台 出品</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2017 葫芦娃团队出品</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->

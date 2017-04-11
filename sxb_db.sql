@@ -189,12 +189,6 @@ create table t_code
    primary key (id)
 );
 
-create unique index uid_expired on t_code
-(
-   uid,
-   expired
-);
-
 
 alter table t_account add column code_status int(10) not null default 0 comment '验证状态';
 

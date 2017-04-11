@@ -1,13 +1,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        监控分组列表
-        #*<small>主机、IP</small>*#
+            验证码列表
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">我的分组</a></li>
-        <li class="active">监控分组列表</li>
+        <li><a href="#">验证码管理</a></li>
+        <li class="active">验证码列表</li>
     </ol>
 </section>
 
@@ -20,12 +19,10 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th><input type="checkbox" id="all"></th>
-                            <th>分组名</th>
-                            <th>分享给</th>
+                            <th>创建者</th>
+                            <th>验证码</th>
                             <th>创建时间</th>
-                            <th>更新时间</th>
-                            <th>操作</th>
+                            <th>是否过期</th>
                         </tr>
                         </thead>
                     </table>
@@ -34,11 +31,3 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-
-<script id="tmpl_level" type="text/template">
-    <option value="">请选择</option>
-    #foreach( $item in $!userGroup )
-        <option value="$item.id">$item.usergroupname</option>
-    #end
-</script>
-#parse("vm/common/alarm_common.vm")

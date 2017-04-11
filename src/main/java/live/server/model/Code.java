@@ -10,6 +10,10 @@ public class Code {
 	private String create_time;
 	
 	private Integer expired;
+	
+	private Integer offset;
+	
+	private Integer limit;
 
 	public Integer getId() {
 		return id;
@@ -49,5 +53,21 @@ public class Code {
 
 	public void setCode_value(String code_value) {
 		this.code_value = code_value;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
 	}
 }

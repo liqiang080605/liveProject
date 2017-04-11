@@ -3,6 +3,9 @@ package live.server.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +20,7 @@ import live.server.service.AccountService;
 
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/console/login")
 public class LoginController {
 	@Autowired
 	AccountService accountService;
@@ -27,7 +30,8 @@ public class LoginController {
     @RequestMapping(value = "in", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password) throws Exception {
+    		@RequestParam(value = "password", required = true) String password,
+    		HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
     	Map<String, Object> resultMap = new HashMap<String, Object>();
     	
@@ -36,11 +40,13 @@ public class LoginController {
     	int code = Integer.valueOf(String.valueOf(resultMap.get("errorCode")));
     	
     	resultMap.clear();
-    	if(code != 0) {
+    	if(code != 0 && code != 90000) {
     		resultMap.put("success", false);
     		resultMap.put("data", "用户名或密码不正确");
     	} else {
     		resultMap.put("success", true);
+    		
+    		request.getSession().setAttribute("username", username);
     	}
     	return JsonUtil.mapToJson(resultMap);
     }
@@ -50,4 +56,14 @@ public class LoginController {
         return "vm/index/sys_error";
     }
 
+    @RequestMapping(value = "out")
+    @ResponseBody
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	
+    	request.getSession().removeAttribute("username");
+    	response.sendRedirect("/");
+    	return JsonUtil.mapToJson(resultMap);
+    }
 }

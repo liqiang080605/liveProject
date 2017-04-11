@@ -202,6 +202,15 @@ public class AccountService {
 			return;
 		}
 		
+		if(!StringUtils.isBlank(email)) {
+			Account emailAccount = accountDao.queryByEmail(email); 
+			if(emailAccount != null) {
+				resultMap.put("errorCode",Constants.ERR_REGISTER_USER_EXIST);
+				resultMap.put("errorInfo", "Register user email existed.");
+				return;
+			}
+		}
+		
 		account = new Account();
 		account.setUid(id);
 		account.setPwd(pwd);

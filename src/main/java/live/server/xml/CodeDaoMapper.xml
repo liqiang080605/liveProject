@@ -21,6 +21,10 @@
 		VALUES(NULL, #{uid}, #{code_value}, #{create_time}, #{expired})
 	</insert>
 	
+	<select id="countAll" resultType="int">
+		select count(*) from t_code;
+	</select>
+	
 	<select id="query" resultMap="code">
 		select * from t_code where expired = 0
 		
@@ -30,6 +34,10 @@
 		<if test="create_time != null and create_time != ''">
 			and create_time = #{create_time}
 		</if>
+	</select>
+	
+	<select id="queryAllCodeByOffset" resultMap="code">
+		select * from t_code limit #{offset},#{limit}
 	</select>
 	
 	<select id="queryByUid" resultMap="code">
