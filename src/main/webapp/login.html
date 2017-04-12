@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>登陆界面</title>
-	<link rel="stylesheet" type="text/css" href="static/css/login.min.css">
-	<script src="/static/js/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/liver/static/css/login.min.css">
+	<script src="/liver/static/js/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	
 </head>
 <body>
@@ -43,13 +43,13 @@
 	
 	function login() {
 		$.ajax({
-            url:"/console/login/in",
+            url:"/liver/console/login/in",
             data:$("#loginForm").serialize(),
             type:"post",
             success:function(data){//ajax返回的数据
             	var obj = JSON.parse(data);
                 if(obj.success  == true) {
-            		window.location.href='/console/code';
+            		window.location.href='/liver/console/code';
                 } else {
                 	alert("用户名或密码不正确")
                 }

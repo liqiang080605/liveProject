@@ -8,7 +8,7 @@ $(function () {
         "select": true,
         "pageLength": 15,
         "lengthMenu": [ 15, 30, 50, 75, 100 ],
-        "ajax":"/console/code/list",
+        "ajax":"/liver/console/code/list",
         "ordering": false,
         "dom": '<"toolbar"><"col-sm-6"l><"col-sm-6"<"type">f>rt<"col-sm-6"i><"col-sm-6"p>',
         // id, ip, idc, model, power_u, power_p, update_time, create_time
@@ -36,7 +36,7 @@ $(function () {
     $('#create').click(function(){
     	
     	$.ajax({
-            url:"/console/code/create",
+            url:"/liver/console/code/create",
             type:"GET",
         }).done(function(data){
         	$table.ajax.reload();
