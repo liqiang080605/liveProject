@@ -207,3 +207,18 @@ create table t_ppt
 
 --2017/04/10
 alter table t_account add column email varchar(50) default null COMMENT '邮箱';
+
+--2017/04/12
+create table t_hospital
+(
+   id                   int not null auto_increment,
+   name                 varchar(100) not null,
+   province             varchar(100) not null,
+   city                 varchar(100) not null,
+   county               varchar(200) not null,
+   address              varchar(200) not null,
+   create_date          datetime default NULL,
+   update_date          datetime default NULL,
+   doctor_num           int default 0,
+   primary key (id)
+);
