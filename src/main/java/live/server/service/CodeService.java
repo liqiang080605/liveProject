@@ -96,6 +96,7 @@ public class CodeService {
 		}
 		
 		account.setCode_status(1);
+		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
 	    accountService.update(account);
 	    
 	    accountService.login(uid, password, resultMap);

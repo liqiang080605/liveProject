@@ -222,3 +222,18 @@ create table t_hospital
    doctor_num           int default 0,
    primary key (id)
 );
+
+--2017/04/15
+alter table t_account add column expert_status varchar(10) not null default '0' comment '专家状态';
+
+create table t_expert
+(
+   id                   int not null auto_increment,
+   name                 varchar(100) not null,
+   title                varchar(100) not null,
+   level                varchar(100) not null,
+   detail               varchar(1000) not null,
+   create_date          datetime default NULL,
+   update_date          datetime default NULL,
+   primary key (id)
+);

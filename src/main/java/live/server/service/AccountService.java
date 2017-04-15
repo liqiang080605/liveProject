@@ -221,6 +221,7 @@ public class AccountService {
 		account.setState(0);
 		account.setRole(UserRole.USER.getRole());
 		account.setCode_status(0);
+		account.setExpert_status(CommonUtil.CURRENT_EXPERT);
 		account.setEmail(email);
 		
 		int count = accountDao.insert(account);

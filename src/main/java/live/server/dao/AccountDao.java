@@ -1,5 +1,7 @@
 package live.server.dao;
 
+import java.util.List;
+
 import live.server.model.Account;
 
 public interface AccountDao {
@@ -15,5 +17,9 @@ public interface AccountDao {
 	public int logout(Account account);
 
 	public Account queryByEmail(String email);
+
+	public List<Account> queryByRole(int role);
+
+	public List<Account> query(Account queryAccount);
 
 }

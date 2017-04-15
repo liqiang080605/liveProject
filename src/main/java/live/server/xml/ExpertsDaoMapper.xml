@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.server.dao.ExpertsDao">
+	<resultMap id="expert" type="live.server.model.Expert">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="title" column="province" />
+		<result property="level" column="city" />
+		<result property="detail" column="county" />
+		<result property="create_date" column="create_date" />
+		<result property="update_date" column="update_date" />
+	</resultMap>
+
+	<sql id="base_column">
+		id, name, title, level, detail, create_date, update_date
+	</sql>
+	
+	<insert id="insert">
+	    INSERT INTO
+		t_expert(
+		<include refid="base_column" />
+		)
+		VALUES(NULL,#{name}, #{title}, #{level}, #{detail}, now(), now())
+	</insert>
+	
+	<select id="queryById" resultMap="expert">
+		select * from t_expert where id = #{id}
+	</select>
+	
+	<select id="query" resultMap="expert">
+		select * from t_expert
+		where 1=1
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="title != null and title != ''">
+			and title = #{title}
+		</if>
+		<if test="level != null and level != ''">
+			and level = #{level}
+		</if>
+		<if test="detail != null and detail != ''">
+			and detail = #{detail}
+		</if>
+		<if test="offset != null and offset != ''">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<update id="update">
+		update t_expert
+		set update_date = now()
+		<if test="name != null and name != ''">
+			, name = #{name}
+		</if>
+		<if test="title != null and title != ''">
+			, title = #{title}
+		</if>
+		<if test="level != null and level != ''">
+			, level = #{level}
+		</if>
+		<if test="detail != null and detail != ''">
+			, detail = #{detail}
+		</if>
+		where 1=1
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+	</update>
+</mapper>

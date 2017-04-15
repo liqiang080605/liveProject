@@ -24,6 +24,12 @@ public class Account {
 	Integer code_status;
 	
 	String email;
+	
+	String expert_status;
+	
+	Integer offset;
+	
+	Integer limit;
 
 	public String getUid() {
 		return uid;
@@ -119,6 +125,30 @@ public class Account {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getExpert_status() {
+		return expert_status;
+	}
+
+	public void setExpert_status(String expert_status) {
+		this.expert_status = expert_status;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
 	}
 
 }

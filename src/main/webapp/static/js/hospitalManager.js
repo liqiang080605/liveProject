@@ -64,10 +64,10 @@ $(function () {
         var create_tmpl = [
             '<form class="form-horizontal">',
             '<div class="form-group"><label class="col-sm-2 control-label">名称</label><div class="col-sm-10"><input type="text" class="form-control" name="name" placeholder="名称(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
-            '<div class="form-group"><label class="col-sm-2 control-label">省</label><div class="col-sm-10"><input type="text" class="form-control" name="province" placeholder="名称(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
-            '<div class="form-group"><label class="col-sm-2 control-label">市</label><div class="col-sm-10"><input type="text" class="form-control" name="city" placeholder="名称(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
-            '<div class="form-group"><label class="col-sm-2 control-label">县/区</label><div class="col-sm-10"><input type="text" class="form-control" name="county" placeholder="名称(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
-            '<div class="form-group"><label class="col-sm-2 control-label">地址</label><div class="col-sm-10"><input type="text" class="form-control" name="address" placeholder="名称(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
+            '<div class="form-group"><label class="col-sm-2 control-label">省</label><div class="col-sm-10"><input type="text" class="form-control" name="province" placeholder="省(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
+            '<div class="form-group"><label class="col-sm-2 control-label">市</label><div class="col-sm-10"><input type="text" class="form-control" name="city" placeholder="市(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
+            '<div class="form-group"><label class="col-sm-2 control-label">县/区</label><div class="col-sm-10"><input type="text" class="form-control" name="county" placeholder="县/区(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
+            '<div class="form-group"><label class="col-sm-2 control-label">地址</label><div class="col-sm-10"><input type="text" class="form-control" name="address" placeholder="地址(不能包含,={}特殊符号)" onkeyup="validate(this)" value=""></div></div>',
             '<div class="form-group"><div class="col-sm-2 col-sm-offset-4"><button type="button" class="btn btn-primary">确认</button></div><div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">取消</button></div></div>',
             '</form>',
         ].join("");

@@ -15,11 +15,12 @@
 		<result property="role" column="role" />
 		<result property="code_status" column="code_status" />
 		<result property="email" column="email" />
+		<result property="expert_status" column="expert_status" />
 	</resultMap>
 
 	<sql id="base_column">
 		uid, pwd, token, state, user_sig, register_time, login_time,
-		logout_time, last_request_time, role,code_status,email
+		logout_time, last_request_time, role,code_status,email,expert_status
 	</sql>
 	
 	<insert id="insert">
@@ -28,11 +29,15 @@
 		<include refid="base_column" />
 		)
 		VALUES(#{uid}, #{pwd}, #{token}, #{state}, #{user_sig}, #{register_time},
-		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status},#{email})
+		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status},#{email},#{expert_status})
 	</insert>
 	
 	<select id="queryById" resultMap="account">
 		select * from t_account where uid = #{uid}
+	</select>
+	
+	<select id="queryByRole" resultMap="account">
+		select * from t_account where role = #{role}
 	</select>
 	
 	<select id="queryByEmail" resultMap="account">
@@ -43,9 +48,53 @@
 		select * from t_account where token = #{token}
 	</select>
 	
+	<select id="query" resultMap="account">
+		select * from t_account
+		where 1=1
+		<if test="token != null and token != ''">
+			and token = #{token}
+		</if>
+		<if test="state != null and state != ''">
+			and state = #{state}
+		</if>
+		<if test="user_sig != null and user_sig != ''">
+			and user_sig = #{user_sig}
+		</if>
+		<if test="register_time != null and register_time != ''">
+			and register_time = #{register_time}
+		</if>
+		<if test="login_time != null and login_time != ''">
+			and login_time = #{login_time}
+		</if>
+		<if test="logout_time != null and logout_time != ''">
+			and logout_time = #{logout_time}
+		</if>
+		<if test="last_request_time != null and last_request_time != ''">
+			and last_request_time = #{last_request_time}
+		</if>
+		<if test="role != null and role != ''">
+			and role = #{role}
+		</if>
+		<if test="code_status != null and code_status != ''">
+			and code_status = #{code_status}
+		</if>
+		<if test="email != null and email != ''">
+			and email = #{email}
+		</if>
+		<if test="expert_status != null and expert_status != ''">
+			and expert_status = #{expert_status}
+		</if>
+		<if test="uid != null and uid != ''">
+			and uid = #{uid}
+		</if>
+		<if test="offset != null and offset != ''">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
 	<update id="update">
 		update t_account
-		set pwd = #{pwd}
+		set last_request_time = #{last_request_time}
 		<if test="token != null and token != ''">
 			, token = #{token}
 		</if>
@@ -64,8 +113,8 @@
 		<if test="logout_time != null and logout_time != ''">
 			, logout_time = #{logout_time}
 		</if>
-		<if test="last_request_time != null and last_request_time != ''">
-			, last_request_time = #{last_request_time}
+		<if test="pwd != null and pwd != ''">
+			, pwd = #{pwd}
 		</if>
 		<if test="role != null and role != ''">
 			, role = #{role}
@@ -75,6 +124,9 @@
 		</if>
 		<if test="email != null and email != ''">
 			, email = #{email}
+		</if>
+		<if test="expert_status != null and expert_status != ''">
+			, expert_status = #{expert_status}
 		</if>
 		where uid = #{uid}
 	</update>
