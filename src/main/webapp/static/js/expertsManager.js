@@ -100,7 +100,7 @@ $(function () {
         }
 
         $.jd_confirm({type:"info",message:"确认要将ID为"+ids.join(",")+"转到历史库吗？",ok:function(){
-            $.jd_ajax({url:"/liver/console/expertsManager/update_history",type:"post",data:{ids:ids},ok:function(){
+            $.jd_ajax({url:"/liver/console/expertManager/update_history",type:"post",data:{ids:ids},ok:function(){
                 setTimeout(function(){$table.ajax.reload()},1000);
             }});
         }});

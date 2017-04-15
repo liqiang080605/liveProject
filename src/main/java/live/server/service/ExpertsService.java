@@ -65,7 +65,7 @@ public class ExpertsService {
 	public void addExperts(String name, String title, String level, String detail) {
 		Account account = new Account();
 		account.setUid(name);
-		account.setPwd("123456");
+		account.setPwd(CommonUtil.sha256("123456"));
 		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setLogin_time(String.valueOf(System.currentTimeMillis()/1000));
 		account.setLogout_time(String.valueOf(System.currentTimeMillis()/1000));

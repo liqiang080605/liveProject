@@ -27,9 +27,9 @@ public class CommonUtil {
 	
 	public static final Integer IAVROOM_ROLE_2 = 2;
 
-	public static final String CURRENT_EXPERT = "1";
+	public static final String CURRENT_EXPERT = "0";
 	
-	public static final String HISTORY_EXPERT = "2";
+	public static final String HISTORY_EXPERT = "1";
 
 	public static String BIZID;
 

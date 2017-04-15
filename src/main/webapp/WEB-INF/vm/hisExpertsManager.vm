@@ -1,12 +1,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-            当期专家列表
+            往期专家列表
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">专家库管理</a></li>
-        <li class="active">当期专家列表</li>
+        <li class="active">往期专家列表</li>
     </ol>
 </section>
 
