@@ -255,19 +255,31 @@ public class LiveService {
 			resultMap.put("errorInfo", "User token expired.");
 			return;
 		}
+		//更新房间
+		AvRoom room = new AvRoom();
+		room.setId(roomnum);
+		room.setUid(account.getUid());
+		room.setLast_update_time(String.valueOf(System.currentTimeMillis()/1000));
 		
+		roomService.updateLastUpdateTime(room);
+		
+		//更新房间里成员
 		InteractAvRoom iaRoom = new InteractAvRoom();
 		iaRoom.setUid(account.getUid());
 		iaRoom.setRole(role);
 		iaRoom.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
+		iaRoom.setAv_room_id(roomnum);
 		iavRoomService.updateLastUpdateTimeByUid(iaRoom);
 		
+		//更新直播房间
 		NewLiveRecord nlRecord = new NewLiveRecord();
 		nlRecord.setAdmire_count(thumbup);
 		nlRecord.setModify_time(String.valueOf(System.currentTimeMillis()/1000));
 		nlRecord.setHost_uid(account.getUid());
+		nlRecord.setAv_room_id(roomnum);
 		nliveRecordService.updateByHostUid(nlRecord);
 		
+		// 更新账号
 		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
 		accountService.update(account);
 		

@@ -17,4 +17,6 @@ public interface NewLiveRecordDao {
 
 	void deleteByHostUid(String uid);
 
+	void deleteDeathRoom(NewLiveRecord nlRecord);
+
 }

@@ -79,4 +79,8 @@ public class RoomService {
 		roomDao.deleteByUid(uid);
 	}
 
+	public void updateLastUpdateTime(AvRoom room) {
+		roomDao.update(room);
+	}
+
 }

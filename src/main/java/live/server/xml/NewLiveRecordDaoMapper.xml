@@ -144,4 +144,7 @@
 		delete from t_new_live_record where host_uid = #{host_uid}
 	</delete>
 	
+	<delete id="deleteDeathRoom">
+		delete from t_new_live_record where modify_time &lt; #{modify_time}
+	</delete>
 </mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <bean id="SyncRoomStatusJobDetail"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+            <value>live.server.quartz.SyncRoomStatusJob</value>  
+        </property>
+        <property name="durability" value="true" /> 
+    </bean>
+    
+    <bean id="SyncRoomStatusJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="SyncRoomStatusJobDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>41 0/1 * 1/1 * ? *</value>
+        </property>
+    </bean>
+
+	<bean id="jobFactory" class="live.server.quartz.LiveJobFactory"></bean>
+
+    <bean name="startQuertz" lazy-init="false" autowire="no"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobFactory" ref="jobFactory"></property>
+        <property name="triggers">
+            <list>
+                <!-- 定时删除死亡的房间 -->
+                <ref bean="SyncRoomStatusJobTrigger" />
+            </list>
+        </property>
+    </bean>
+</beans>
