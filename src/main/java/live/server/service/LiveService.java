@@ -145,7 +145,11 @@ public class LiveService {
 		nliveRecordService.deleteByHostUid(account.getUid());
 		
 		//清空房间成员
-		iavRoomService.ClearRoomByRoomNum(roomnum);
+		InteractAvRoom iaRoom = new InteractAvRoom();
+		iaRoom.setAv_room_id(roomnum);
+		iaRoom.setUid(account.getUid());
+		
+		iavRoomService.clearRoomByUidAndRoomId(iaRoom);
 		
 		resultMap.put("errorCode",Constants.ERR_SUCCESS);
 		resultMap.put("errorInfo", "success.");

@@ -69,5 +69,9 @@
 	<delete id="deleteDeathRoom">
 		delete from t_interact_av_room where modify_time &lt; #{modify_time}
 	</delete>
+	
+	<delete id="delete">
+		delete from t_interact_av_room where uid=#{uid} and av_room_id=#{av_room_id}
+	</delete>
 
 </mapper>

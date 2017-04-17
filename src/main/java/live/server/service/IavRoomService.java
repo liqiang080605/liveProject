@@ -41,9 +41,13 @@ public class IavRoomService {
 		iavRoomDao.update(iavRoom);
 	}
 
-	public void ClearRoomByRoomNum(int roomnum) {
+	public void clearRoomByRoomNum(int roomnum) {
 		iavRoomDao.deleteByRoomId(roomnum);
 		
+	}
+
+	public void clearRoomByUidAndRoomId(InteractAvRoom iaRoom) {
+		iavRoomDao.delete(iaRoom);
 	}
 
 }

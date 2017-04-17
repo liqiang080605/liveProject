@@ -20,4 +20,6 @@ public interface InteractAvRoomDao {
 
 	void deleteDeathRoom(InteractAvRoom iavRoom);
 
+	void delete(InteractAvRoom iaRoom);
+
 }
