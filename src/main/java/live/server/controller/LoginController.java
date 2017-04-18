@@ -38,10 +38,7 @@ public class LoginController {
     	
     	accountService.login(username, password, resultMap);
     	
-    	int code = Integer.valueOf(String.valueOf(resultMap.get("errorCode")));
-    	
-    	resultMap.clear();
-    	if(code != 0) {
+    	if(!Boolean.valueOf(String.valueOf(resultMap.get("success")))) {
     		resultMap.put("success", false);
     		resultMap.put("data", "用户名或密码不正确");
     	} else {

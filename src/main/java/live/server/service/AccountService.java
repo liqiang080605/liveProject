@@ -97,6 +97,8 @@ public class AccountService {
     		resultMap.put("data", "用户名或密码不正确");
 			return;
 		}
+		
+		resultMap.put("success", true);
 	}
 	
 	private void login(String jsonStr, Map<String, Object> resultMap) {
@@ -157,6 +159,7 @@ public class AccountService {
 			resultMap.put("errorInfo", "success");
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("token", account.getToken());
+			dataMap.put("role", account.getRole());
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("codeStatus", account.getCode_status());
 			dataMap.put("id", account.getUid());
