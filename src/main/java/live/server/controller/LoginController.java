@@ -32,6 +32,7 @@ public class LoginController {
     public String login(@RequestParam(value = "username", required = true) String username,
     		@RequestParam(value = "password", required = true) String password,
     		HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	logger.info("Manager console login info user is " + username);
     	
     	Map<String, Object> resultMap = new HashMap<String, Object>();
     	
@@ -40,7 +41,7 @@ public class LoginController {
     	int code = Integer.valueOf(String.valueOf(resultMap.get("errorCode")));
     	
     	resultMap.clear();
-    	if(code != 0 && code != 90000) {
+    	if(code != 0) {
     		resultMap.put("success", false);
     		resultMap.put("data", "用户名或密码不正确");
     	} else {
@@ -51,15 +52,9 @@ public class LoginController {
     	return JsonUtil.mapToJson(resultMap);
     }
 
-    @RequestMapping(value = "error", method = RequestMethod.POST)
-    public String logout(Model model) {
-        return "vm/index/sys_error";
-    }
-
     @RequestMapping(value = "out")
     @ResponseBody
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	
     	Map<String, Object> resultMap = new HashMap<String, Object>();
     	
     	request.getSession().removeAttribute("username");

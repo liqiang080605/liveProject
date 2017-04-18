@@ -76,11 +76,27 @@ public class AccountService {
 	}
 
 	public void login(String id, String pwd, Map<String, Object> resultMap) {
-		Map<String, Object> loginMap = new HashMap<String, Object>();
-	    loginMap.put("id", id);
-	    loginMap.put("pwd", pwd);
-	    
-	    login(JsonUtil.mapToJson(loginMap), resultMap);
+		
+		pwd = CommonUtil.sha256(pwd);
+		
+		Account account = accountDao.queryById(id);
+		if(account == null) {
+			account = accountDao.queryByEmail(id);
+		}
+		
+		//账号验证
+		if(account == null) {
+			resultMap.put("success", false);
+    		resultMap.put("data", "用户名或密码不正确");
+			return;
+		}
+		
+		//密码验证
+		if(!pwd.equals(account.getPwd())) {
+			resultMap.put("success", false);
+    		resultMap.put("data", "用户名或密码不正确");
+			return;
+		}
 	}
 	
 	private void login(String jsonStr, Map<String, Object> resultMap) {
@@ -136,7 +152,7 @@ public class AccountService {
 		}
 		
 		//是否已经登陆
-		if(account.getState().equals("1")) {
+		if(account.getState().equals(CommonUtil.ACCOUNT_STATE_1)) {
 			resultMap.put("errorCode", Constants.ERR_SUCCESS);
 			resultMap.put("errorInfo", "success");
 			Map<String, Object> dataMap = new HashMap<String, Object>();
