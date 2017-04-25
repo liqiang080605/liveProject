@@ -41,6 +41,12 @@
 		where id = #{id}
 	</update>
 	
+	<update id="updateLastUpdateTime">
+		update t_av_room
+		set last_update_time = #{last_update_time}
+		where id = #{id} and uid = #{uid}
+	</update>
+	
 	<delete id="deleteByUid">
 		delete from t_av_room where uid = #{uid}
 	</delete>

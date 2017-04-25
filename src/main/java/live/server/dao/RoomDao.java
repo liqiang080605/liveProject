@@ -13,4 +13,6 @@ public interface RoomDao {
 	void deleteByUid(String uid);
 
 	void deleteDeathRoom(AvRoom room);
+
+	void updateLastUpdateTime(AvRoom room);
 }

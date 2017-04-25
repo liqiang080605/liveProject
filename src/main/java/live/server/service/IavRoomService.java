@@ -34,7 +34,7 @@ public class IavRoomService {
 	}
 
 	public void updateLastUpdateTimeByUid(InteractAvRoom iaRoom) {
-		iavRoomDao.update(iaRoom);
+		iavRoomDao.updateLastUpdateTimeByUid(iaRoom);
 	}
 
 	public void update(InteractAvRoom iavRoom) {

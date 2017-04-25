@@ -22,4 +22,6 @@ public interface InteractAvRoomDao {
 
 	void delete(InteractAvRoom iaRoom);
 
+	void updateLastUpdateTimeByUid(InteractAvRoom iaRoom);
+
 }

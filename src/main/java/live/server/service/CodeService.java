@@ -99,7 +99,11 @@ public class CodeService {
 		account.setLast_request_time(String.valueOf(System.currentTimeMillis()/1000));
 	    accountService.update(account);
 	    
-	    accountService.login(uid, password, resultMap);
+	    Map<String, Object> queryMap = new HashMap<String, Object>();
+	    queryMap.put("id", uid);
+	    queryMap.put("pwd", password);
+	    
+	    accountService.login(JsonUtil.mapToJson(queryMap), resultMap);
 	}
 
 	private void createCode(String jsonStr, Map<String, Object> resultMap) {

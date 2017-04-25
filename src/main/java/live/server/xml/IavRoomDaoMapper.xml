@@ -58,6 +58,17 @@
 		where uid = #{uid}
 	</update>
 		
+	<update id="updateLastUpdateTimeByUid">
+		update t_interact_av_room 
+		set modify_time = #{modify_time}
+		<if test="status != null and status != ''">
+			, status = #{status}
+		</if>
+		<if test="role != null and role != ''">
+			, role = #{role}
+		</if>
+		where uid = #{uid} and av_room_id = #{av_room_id}
+	</update>
 	<delete id="deleteByUid">
 		delete from t_interact_av_room where uid = #{uid};
 	</delete>

@@ -107,9 +107,6 @@
 		<if test="cover != null and cover != ''">
 			, cover = #{cover}
 		</if>
-		<if test="av_room_id != null and av_room_id != ''">
-			, av_room_id = #{av_room_id}
-		</if>
 		<if test="chat_room_id != null and chat_room_id != ''">
 			, chat_room_id = #{chat_room_id}
 		</if>
@@ -137,7 +134,7 @@
 		<if test="address != null and address != ''">
 			, address = #{address}
 		</if>
-		where host_uid = #{host_uid}
+		where host_uid = #{host_uid} and av_room_id = #{av_room_id}
 	</update>
 	
 	<delete id="deleteByHostUid">

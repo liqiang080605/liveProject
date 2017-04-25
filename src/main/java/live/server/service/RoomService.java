@@ -80,7 +80,7 @@ public class RoomService {
 	}
 
 	public void updateLastUpdateTime(AvRoom room) {
-		roomDao.update(room);
+		roomDao.updateLastUpdateTime(room);
 	}
 
 }

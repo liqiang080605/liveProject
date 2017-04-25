@@ -61,6 +61,7 @@ public class AccountService {
 			log.error("Token is wrong!");
 			resultMap.put("errorCode", Constants.ERR_SERVER);
 			resultMap.put("errorInfo", "Token is wrong!");
+			log.error("Logout failed. Token is wrong.");
 			return;
 		}
 		
@@ -72,6 +73,7 @@ public class AccountService {
 		
 		resultMap.put("errorCode", Constants.ERR_SUCCESS);
 		resultMap.put("errorInfo", "success!");
+		log.info("Success to logout. User is " + account.getUid());
 		return;
 	}
 
@@ -101,13 +103,14 @@ public class AccountService {
 		resultMap.put("success", true);
 	}
 	
-	private void login(String jsonStr, Map<String, Object> resultMap) {
+	public void login(String jsonStr, Map<String, Object> resultMap) {
 		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
 		
 		//参数验证
 		if(!map.containsKey("id") || !map.containsKey("pwd")) {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Error request json.");
+			log.error("Error request json. Json is " + jsonStr);
 			return;
 		}
 		
@@ -124,6 +127,7 @@ public class AccountService {
 		if(account == null) {
 			resultMap.put("errorCode",Constants.ERR_USER_NOT_EXIST);
 			resultMap.put("errorInfo", "User not exist.");
+			log.error("User not exist. User is " + id);
 			return;
 		}
 		
@@ -131,12 +135,14 @@ public class AccountService {
 		if(!pwd.equals(account.getPwd())) {
 			resultMap.put("errorCode",Constants.ERR_PASSWORD);
 			resultMap.put("errorInfo", "User password error.");
+			log.error("User password error.");
 			return;
 		}
 		
 		if(account.getCode_status() == 0) {
 			resultMap.put("errorCode", Constants.ERR_CODE_CHECK);
 			resultMap.put("errorInfo", "Please check the code");
+			log.error("Please check the code.");
 			return;
 		}
 		
@@ -164,6 +170,7 @@ public class AccountService {
 			dataMap.put("codeStatus", account.getCode_status());
 			dataMap.put("id", account.getUid());
 			resultMap.put("data", dataMap);
+			log.info("User has been login. User is " + id);
 			return;
 		}
 		
@@ -194,6 +201,7 @@ public class AccountService {
 			dataMap.put("id", account.getUid());
 			resultMap.put("data", dataMap);
 		}
+		log.info("Success to login. Id is " + id);
 	}
 
 	private void register(String jsonStr, Map<String, Object> resultMap) {
@@ -218,6 +226,7 @@ public class AccountService {
 		if(account != null) {
 			resultMap.put("errorCode",Constants.ERR_REGISTER_USER_EXIST);
 			resultMap.put("errorInfo", "Register user id existed.");
+			log.error("Register user id is exist. Id is " + id);
 			return;
 		}
 		
@@ -226,6 +235,7 @@ public class AccountService {
 			if(emailAccount != null) {
 				resultMap.put("errorCode",Constants.ERR_REGISTER_USER_EXIST);
 				resultMap.put("errorInfo", "Register user email existed.");
+				log.error("Register user email is exist. Email is " + email);
 				return;
 			}
 		}
@@ -252,6 +262,8 @@ public class AccountService {
 			resultMap.put("errorCode", Constants.ERR_SUCCESS);
 			resultMap.put("errorInfo", "success");
 		}
+		
+		log.info("Register user success. Id is " + id);
 	}
 
 	public Account queryByToken(String token) {
