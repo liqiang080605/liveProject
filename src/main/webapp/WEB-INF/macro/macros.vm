@@ -69,6 +69,11 @@
     <script src="/liver/static/js/code.js" type="text/javascript"></script>
 	#end
 	
+	#if("$!page" == "image")
+    <!-- code js -->
+    <script src="/liver/static/js/image.js" type="text/javascript"></script>
+	#end
+	
 	#if("$!page" == "hospitalManager")
     <!-- agentdetails js -->
     <script src="/liver/static/js/hospitalManager.js" type="text/javascript"></script>
@@ -88,6 +93,7 @@
 
 #macro(navigation $page)
 	#set($menulist = [
+		["图片管理","/liver/console/image","fa-list-alt","image"],
 		["验证码管理","/liver/console/code","fa-list-alt","code"],
 		["医生管理","#","fa-list","doctorManager",[
 		["医院管理","/liver/console/hospitalManager","fa-list","hospitalManager"]

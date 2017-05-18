@@ -14,6 +14,8 @@ public class PPTInfo {
 	
 	String customer_url;
 	
+	String status;
+	
 	String create_time;
 	
 	Integer offset;
@@ -90,6 +92,14 @@ public class PPTInfo {
 
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

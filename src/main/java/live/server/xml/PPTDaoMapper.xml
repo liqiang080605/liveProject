@@ -10,10 +10,11 @@
 		<result property="server_url" column="server_url" />
 		<result property="customer_url" column="customer_url" />
 		<result property="create_time" column="create_time" />
+		<result property="status" column="status" />
 	</resultMap>
 
 	<sql id="base_column">
-		id, uid, name, uuid, server_url, customer_url, create_time
+		id, uid, name, uuid, server_url, customer_url, create_time,status
 	</sql>
 	
 	<insert id="insert">
@@ -21,7 +22,7 @@
 		t_ppt(
 		<include refid="base_column" />
 		)
-		VALUES(NULL, #{uid}, #{name}, #{uuid}, #{server_url}, #{customer_url},#{create_time})
+		VALUES(NULL, #{uid}, #{name}, #{uuid}, #{server_url}, #{customer_url},#{create_time},"1")
 	</insert>
 	
 	<select id="count" resultType="int">
@@ -46,11 +47,35 @@
 		<if test="customer_url != null and customer_url != ''">
 			and customer_url = #{customer_url}
 		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
 		ORDER BY id DESC 
 		<if test="offset != null and offset != ''">
 			LIMIT #{offset}, #{limit};
 		</if>
 	</select>
+	
+	<update id="updateByUuid">
+		update t_ppt 
+		set uuid = #{uuid}
+		<if test="uid != null and uid != ''">
+			, uid = #{uid}
+		</if>
+		<if test="name != null and name != ''">
+			, name = #{name}
+		</if>
+		<if test="server_url != null and server_url != ''">
+			, server_url = #{server_url}
+		</if>
+		<if test="customer_url != null and customer_url != ''">
+			, customer_url = #{customer_url}
+		</if>
+		<if test="status != null and status != ''">
+			, status = #{status}
+		</if>
+		where uuid = #{uuid}
+	</update>
 	
 	<delete id="deleteByUUID">
 		delete from t_ppt

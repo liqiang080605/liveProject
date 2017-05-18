@@ -14,4 +14,6 @@ public interface PPTDao {
 
 	int count();
 
+	void updateByUuid(PPTInfo pptInfo);
+
 }

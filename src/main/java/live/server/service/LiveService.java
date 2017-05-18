@@ -19,6 +19,7 @@ import live.server.model.Account;
 import live.server.model.AvRoom;
 import live.server.model.InteractAvRoom;
 import live.server.model.NewLiveRecord;
+import live.server.model.PPTInfo;
 import live.server.model.UserRole;
 import live.server.shell.ShellService;
 
@@ -34,6 +35,9 @@ public class LiveService {
 	
 	@Autowired
 	IavRoomService iavRoomService;
+	
+	@Autowired
+	PPTService pptService;
 	
 	@Autowired
 	NewLiveRecordService nliveRecordService;
@@ -388,6 +392,17 @@ public class LiveService {
 			iavRoomService.enterRoom(iaRoom);
 		} else {
 			iavRoomService.exitRoom(iaRoom);
+		}
+		
+		PPTInfo info = pptService.getOpenPPT();
+		if(info != null) {
+			Map<String, String> pptMap = new HashMap<String, String>();
+			pptMap.put("name", info.getName());
+			pptMap.put("uuid", info.getUuid());
+			pptMap.put("Server_url", info.getServer_url());
+			pptMap.put("customer_url", info.getCustomer_url());
+			
+			resultMap.put("ppt", pptMap);
 		}
 		
 		resultMap.put("errorCode",Constants.ERR_SUCCESS);

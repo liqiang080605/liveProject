@@ -1,0 +1,15 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+           图片管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">图片管理</a></li>
+        <li class="active">图片展示</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+</section><!-- /.content -->

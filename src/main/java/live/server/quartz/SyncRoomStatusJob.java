@@ -8,6 +8,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import live.server.service.PPTService;
 import live.server.service.SyncRoomStatusService;
 
 @DisallowConcurrentExecution
@@ -18,10 +19,19 @@ public class SyncRoomStatusJob implements Job{
 	@Autowired
 	SyncRoomStatusService syncRoomStatusService;
 	
+	@Autowired
+	PPTService pptService;
+	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		syncRoomStatusService.delDeathRoom();
 		
+		try {
+			syncRoomStatusService.delDeathRoom();
+			
+			pptService.closeDeathPPT();
+		} catch (Exception e) {
+			log.error("Failed to sync room status. Exception is ", e);
+		}
 	}
 
 }

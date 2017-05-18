@@ -30,6 +30,10 @@ public class CommonUtil {
 	public static final String CURRENT_EXPERT = "0";
 	
 	public static final String HISTORY_EXPERT = "1";
+	
+	public static final String PPT_OPEN = "0";
+	
+	public static final String PPT_CLOSE = "1";
 
 	public static String BIZID;
 

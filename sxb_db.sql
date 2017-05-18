@@ -237,3 +237,6 @@ create table t_expert
    update_date          datetime default NULL,
    primary key (id)
 );
+
+--2017/05/15
+alter table t_ppt add column status varchar(10) not null default '1' comment '文档状态';

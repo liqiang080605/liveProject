@@ -5,15 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.dao.PPTDao;
 import live.server.model.Account;
+import live.server.model.AvRoom;
 import live.server.model.PPTInfo;
 import live.server.model.UserRole;
 
@@ -26,6 +29,9 @@ public class PPTService {
 	AccountService aService;
 	
 	@Autowired
+	RoomService roomService;
+	
+	@Autowired
 	PPTDao pptDao;
 
 	public void exec(String cmd, String jsonStr, Map<String, Object> resultMap) {
@@ -35,11 +41,64 @@ public class PPTService {
 			delete(jsonStr, resultMap);
 		} else if (cmd.equals("list")) {
 			list(jsonStr, resultMap);
+		} else if (cmd.equals("oper")) {
+			oper(jsonStr, resultMap);
 		} else {
 			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
 			resultMap.put("errorInfo", "Cmd is error.");
 			return;
 		}
+	}
+
+	private void oper(String jsonStr, Map<String, Object> resultMap) {
+		Map<String, Object> map = JsonUtil.jsonToMap(jsonStr);
+		if(!map.containsKey("token") || !map.containsKey("oper") || !map.containsKey("uuid")) {
+			resultMap.put("errorCode",Constants.ERR_REQ_DATA);
+			resultMap.put("errorInfo", "Error request json.");
+			return;
+		}
+		String token = String.valueOf(map.get("token"));
+		String oper = String.valueOf(map.get("oper"));
+		String uuid = String.valueOf(map.get("uuid"));
+		
+		Account account = aService.queryByToken(token);
+		if(account == null) {
+			log.error("Token is wrong!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "Token is wrong!");
+			return;
+		}
+		
+		if(account.getRole() < UserRole.ADMIN.getRole()) {
+			log.error("User has no auth to oper ppt!");
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", "User has no auth to oper ppt!");
+			return;
+		}
+		
+		if(!aService.checkToken(token)) {
+			resultMap.put("errorCode",Constants.ERR_TOKEN_EXPIRE);
+			resultMap.put("errorInfo", "User token expired.");
+			return;
+		}
+		
+		PPTInfo pptInfo = new PPTInfo();
+		pptInfo.setUuid(uuid);
+		
+		List<PPTInfo> list = pptDao.query(pptInfo);
+		if(CollectionUtils.isEmpty(list)) {
+			resultMap.put("errorCode",Constants.ERR_PPT_EXIST);
+			resultMap.put("errorInfo", "PPT does not exist!");
+			return;
+		}
+		
+		pptInfo.setStatus(oper);
+		pptInfo.setUid(account.getUid());
+		
+		pptDao.updateByUuid(pptInfo);
+		
+		resultMap.put("errorCode", Constants.ERR_SUCCESS);
+		resultMap.put("errorInfo", "success.");
 	}
 
 	private void list(String jsonStr, Map<String, Object> resultMap) {
@@ -199,6 +258,37 @@ public class PPTService {
 		
 		resultMap.put("errorCode", Constants.ERR_SUCCESS);
 		resultMap.put("errorInfo", "success.");
+	}
+
+	public void closeDeathPPT() {
+		PPTInfo queryInfo = new PPTInfo();
+		queryInfo.setStatus(CommonUtil.PPT_OPEN);
+		
+		List<PPTInfo> list = pptDao.query(queryInfo);
+		
+		for(PPTInfo info : list) {
+			String uid = info.getUid();
+			
+			AvRoom room = roomService.getRoom(uid);
+			
+			if(room == null) {
+				info.setStatus(CommonUtil.PPT_CLOSE);
+				pptDao.updateByUuid(info);
+			}
+		}
+	}
+
+	public PPTInfo getOpenPPT() {
+		PPTInfo queryInfo = new PPTInfo();
+		queryInfo.setStatus(CommonUtil.PPT_OPEN);
+		
+		List<PPTInfo> list = pptDao.query(queryInfo);
+		
+		if(!CollectionUtils.isEmpty(list)) {
+			return list.get(0);
+		}
+		
+		return null;
 	}
 
 }
