@@ -301,7 +301,7 @@
 			<log.path>/export/logs/live/</log.path>
 			<log.level>info</log.level>
 			<jdbc_driver>com.mysql.jdbc.Driver</jdbc_driver>
-			<jdbc_url>jdbc:mysql://115.159.104.229:3306/sxb_db?useUnicode=true<![CDATA[&amp;]]>characterEncoding=utf-8
+			<jdbc_url>jdbc:mysql://115.159.104.229:3306/sxb_db?useUnicode=true<![CDATA[&amp;]]>characterEncoding=utf-8<![CDATA[&amp;]]>autoReconnect=true
 			</jdbc_url>
 			<jdbc_username>root</jdbc_username>
 			<jdbc_password>Jgliang1982</jdbc_password>
