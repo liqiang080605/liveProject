@@ -16,11 +16,12 @@
 		<result property="code_status" column="code_status" />
 		<result property="email" column="email" />
 		<result property="expert_status" column="expert_status" />
+		<result property="name" column="name" />
 	</resultMap>
 
 	<sql id="base_column">
 		uid, pwd, token, state, user_sig, register_time, login_time,
-		logout_time, last_request_time, role,code_status,email,expert_status
+		logout_time, last_request_time, role,code_status,email,expert_status,name
 	</sql>
 	
 	<insert id="insert">
@@ -29,7 +30,7 @@
 		<include refid="base_column" />
 		)
 		VALUES(#{uid}, #{pwd}, #{token}, #{state}, #{user_sig}, #{register_time},
-		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status},#{email},#{expert_status})
+		#{login_time}, #{logout_time}, #{last_request_time}, #{role},#{code_status},#{email},#{expert_status},#{name})
 	</insert>
 	
 	<select id="queryById" resultMap="account">
@@ -42,6 +43,10 @@
 	
 	<select id="queryByEmail" resultMap="account">
 		select * from t_account where email = #{email}
+	</select>
+	
+	<select id="queryByName" resultMap="account">
+		select * from t_account where name = #{name}
 	</select>
 	
 	<select id="queryByToken" resultMap="account">
@@ -84,6 +89,9 @@
 		<if test="expert_status != null and expert_status != ''">
 			and expert_status = #{expert_status}
 		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
 		<if test="uid != null and uid != ''">
 			and uid = #{uid}
 		</if>
@@ -124,6 +132,9 @@
 		</if>
 		<if test="email != null and email != ''">
 			, email = #{email}
+		</if>
+		<if test="name != null and name != ''">
+			, name = #{name}
 		</if>
 		<if test="expert_status != null and expert_status != ''">
 			, expert_status = #{expert_status}

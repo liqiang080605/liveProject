@@ -3,6 +3,8 @@ package live.server.model;
 public class Account {
 	String uid;
 	
+	String name;
+	
 	String pwd;
 	
 	Integer role;
@@ -149,6 +151,14 @@ public class Account {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

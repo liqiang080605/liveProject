@@ -240,3 +240,6 @@ create table t_expert
 
 --2017/05/15
 alter table t_ppt add column status varchar(10) not null default '1' comment '文档状态';
+
+--2017/05/19
+alter table t_account add column name varchar(126) not null default '' comment '昵称';

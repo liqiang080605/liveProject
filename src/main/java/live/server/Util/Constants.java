@@ -6,6 +6,10 @@ public interface Constants {
 	
 	Integer ERR_REGISTER_USER_EXIST = 10004;
 	
+	Integer ERR_REGISTER_EMAIL_EXIST = 60001;
+	
+	Integer ERR_REGISTER_NAME_EXIST = 60002;
+	
 	Integer ERR_USER_NOT_EXIST = 10005;
 	
 	Integer ERR_PASSWORD = 10006;

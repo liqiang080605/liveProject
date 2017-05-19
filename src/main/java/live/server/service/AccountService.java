@@ -165,6 +165,7 @@ public class AccountService {
 			resultMap.put("errorInfo", "success");
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("token", account.getToken());
+			dataMap.put("name", account.getName());
 			dataMap.put("role", account.getRole());
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("codeStatus", account.getCode_status());
@@ -196,6 +197,7 @@ public class AccountService {
 			resultMap.put("errorInfo", "success");
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 			dataMap.put("token", account.getToken());
+			dataMap.put("name", account.getName());
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("role", account.getRole());
 			dataMap.put("id", account.getUid());
@@ -219,6 +221,12 @@ public class AccountService {
 		if(map.get("email") != null) {
 			email = String.valueOf(map.get("email"));
 		}
+		
+		String name = null;
+		if(map.get("name") != null) {
+			name = String.valueOf(map.get("name"));
+		}
+		
 		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
@@ -233,9 +241,19 @@ public class AccountService {
 		if(!StringUtils.isBlank(email)) {
 			Account emailAccount = accountDao.queryByEmail(email); 
 			if(emailAccount != null) {
-				resultMap.put("errorCode",Constants.ERR_REGISTER_USER_EXIST);
+				resultMap.put("errorCode",Constants.ERR_REGISTER_EMAIL_EXIST);
 				resultMap.put("errorInfo", "Register user email existed.");
 				log.error("Register user email is exist. Email is " + email);
+				return;
+			}
+		}
+		
+		if(!StringUtils.isBlank(name)) {
+			Account nameAccount = accountDao.queryByName(name); 
+			if(nameAccount != null) {
+				resultMap.put("errorCode",Constants.ERR_REGISTER_NAME_EXIST);
+				resultMap.put("errorInfo", "Register user name existed.");
+				log.error("Register user name is exist. Name is " + name);
 				return;
 			}
 		}
@@ -252,6 +270,7 @@ public class AccountService {
 		account.setCode_status(0);
 		account.setExpert_status(CommonUtil.CURRENT_EXPERT);
 		account.setEmail(email);
+		account.setName(name);
 		
 		int count = accountDao.insert(account);
 		

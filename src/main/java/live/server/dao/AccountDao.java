@@ -22,4 +22,6 @@ public interface AccountDao {
 
 	public List<Account> query(Account queryAccount);
 
+	public Account queryByName(String name);
+
 }
