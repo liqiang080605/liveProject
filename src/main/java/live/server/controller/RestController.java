@@ -3,6 +3,9 @@ package live.server.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.service.AccountService;
 import live.server.service.CodeService;
+import live.server.service.ImageService;
 import live.server.service.LiveService;
 import live.server.service.PPTService;
 
@@ -36,11 +40,14 @@ public class RestController {
 	@Autowired
 	PPTService pptService;
 	
+	@Autowired
+	ImageService imageService;
+	
 	@RequestMapping(value = "index.php", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String add(@RequestParam(value = "svc", required = true) String svc,
 			@RequestParam(value = "cmd", required = true) String cmd,
-			@RequestBody String jsonStr) {
+			@RequestBody String jsonStr, HttpServletResponse response, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		log.info("Request svc is " + svc + ". cmd is " + cmd + ". body is " + jsonStr);
 		
@@ -57,6 +64,23 @@ public class RestController {
 		} catch (Exception e) {
 			log.error("Failed to exec cmd. " + "Request svc is " + 
 					svc + ". cmd is " + cmd + ". body is " + jsonStr, e);
+			resultMap.put("errorCode", Constants.ERR_SERVER);
+			resultMap.put("errorInfo", e.getMessage());
+		}
+		
+		return JsonUtil.mapToJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/image/download", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String download(HttpServletResponse response, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		log.info("Request url is /image/download");
+		
+		try {
+			imageService.download(response, request, resultMap);
+		} catch (Exception e) {
+			log.error("Failed to exec cmd. Request url is /image/download", e);
 			resultMap.put("errorCode", Constants.ERR_SERVER);
 			resultMap.put("errorInfo", e.getMessage());
 		}

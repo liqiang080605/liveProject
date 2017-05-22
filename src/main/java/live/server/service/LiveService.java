@@ -402,7 +402,7 @@ public class LiveService {
 			pptMap.put("Server_url", info.getServer_url());
 			pptMap.put("customer_url", info.getCustomer_url());
 			
-			resultMap.put("ppt", pptMap);
+			resultMap.put("data", pptMap);
 		}
 		
 		resultMap.put("errorCode",Constants.ERR_SUCCESS);

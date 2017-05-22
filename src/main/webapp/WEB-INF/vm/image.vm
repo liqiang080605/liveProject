@@ -12,4 +12,13 @@
 
 <!-- Main content -->
 <section class="content">
+	<div class="row">
+        <div class="pull-left margin-r-50">
+            <div class="btn-group" name="time" data-toggle="btn-toggle">
+                <button type="button" class="btn btn-flat btn-primary margin active" style="left: 200px;">图片上传</button>
+            </div>
+        </div>
+        
+    </div>
+    
 </section><!-- /.content -->
