@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="queryAllCodeByOffset" resultMap="code">
-		select * from t_code limit #{offset},#{limit}
+		select * from t_code ORDER BY id desc limit #{offset},#{limit} 
 	</select>
 	
 	<select id="queryByUid" resultMap="code">
