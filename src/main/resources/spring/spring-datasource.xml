@@ -15,9 +15,9 @@
         <property name="username" value="${jdbc_username}"></property>  
         <property name="password" value="${jdbc_password}"></property>  
         <!-- 最大连接数 -->  
-        <property name="maxActive" value="15"></property>  
+        <property name="maxActive" value="100"></property>  
         <!-- 最大可空闲 -->  
-        <property name="maxIdle" value="15"></property>  
+        <property name="maxIdle" value="100"></property>  
         <!-- 最大等待秒数，单位为毫秒， 超过时间会报出错误信息 -->  
         <property name="maxWait" value="60000"></property>  
         <!-- 默认自动提交，跟事务有关系，true，每执行就会提交，所以没有事务 -->  
