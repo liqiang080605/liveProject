@@ -170,6 +170,7 @@ public class AccountService {
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("codeStatus", account.getCode_status());
 			dataMap.put("id", account.getUid());
+			dataMap.put("email", account.getEmail());
 			resultMap.put("data", dataMap);
 			log.info("User has been login. User is " + id);
 			return;
@@ -201,6 +202,7 @@ public class AccountService {
 			dataMap.put("userSig", account.getUser_sig());
 			dataMap.put("role", account.getRole());
 			dataMap.put("id", account.getUid());
+			dataMap.put("email", account.getEmail());
 			resultMap.put("data", dataMap);
 		}
 		log.info("Success to login. Id is " + id);
