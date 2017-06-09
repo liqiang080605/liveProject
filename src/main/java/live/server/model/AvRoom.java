@@ -5,6 +5,10 @@ public class AvRoom {
 	
 	String uid;
 	
+	String name;
+	
+	String subname;
+	
 	String aux_md5;
 	
 	String main_md5;
@@ -49,6 +53,22 @@ public class AvRoom {
 
 	public void setLast_update_time(String last_update_time) {
 		this.last_update_time = last_update_time;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSubname() {
+		return subname;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSubname(String subname) {
+		this.subname = subname;
 	}
 
 }

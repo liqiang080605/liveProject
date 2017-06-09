@@ -78,19 +78,11 @@ public class CodeService {
 		
 		List<Code> codeList = codeDao.query(queryCode);
 		if(codeList.size() == 0) {
-			resultMap.put("errorCode",Constants.ERR_CODE_EXPIRE);
-			resultMap.put("errorInfo", "Code is expired or does not exist.");
+			resultMap.put("errorCode",Constants.ERR_CODE);
+			resultMap.put("errorInfo", "Code does not exist.");
 			return;
 		} else {
 			Code code = codeList.get(0);
-			if(EXPIRED_TIME - (System.currentTimeMillis()/1000 - Integer.valueOf(code.getCreate_time())) <= 0) {
-				resultMap.put("errorCode",Constants.ERR_CODE_EXPIRE);
-				resultMap.put("errorInfo", "Code is expired.");
-				code.setExpired(CommonUtil.CODE_EXPIRED_1);
-				codeDao.update(code);
-				return;
-			}
-			
 			code.setExpired(CommonUtil.CODE_EXPIRED_1);
 			codeDao.update(code);
 		}
@@ -138,7 +130,7 @@ public class CodeService {
 			return;
 		}
 		
-		List<Code> codeList = codeDao.queryByUid(account.getUid());
+		/*List<Code> codeList = codeDao.queryByUid(account.getUid());
 		if(codeList.size() > 0) {
 			code = codeList.get(0);
 			if(EXPIRED_TIME - (System.currentTimeMillis()/1000 - Integer.valueOf(code.getCreate_time())) > 0) {
@@ -153,8 +145,7 @@ public class CodeService {
 				code.setExpired(CommonUtil.CODE_EXPIRED_1);
 				codeDao.update(code);
 			}
-		} 
-		
+		} */
 		code = new Code();
 		code.setUid(account.getUid());
 		code.setCode_value(CommonUtil.getRandomCode());

@@ -1,6 +1,5 @@
 package live.server.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -54,10 +53,12 @@ public class RoomService {
 		return roomDao.update(room);
 	}
 
-	public boolean create(String uid, Map<String, Object> resultMap) {
+	public boolean create(String uid, String name, String subname, Map<String, Object> resultMap) {
 		// TODO Auto-generated method stub
 		AvRoom room = new AvRoom();
 		room.setUid(uid);
+		room.setName(name);
+		room.setSubname(subname);
 		room.setLast_update_time(String.valueOf(System.currentTimeMillis()/1000));
 		roomDao.insert(room);
 		
@@ -82,6 +83,10 @@ public class RoomService {
 
 	public void updateLastUpdateTime(AvRoom room) {
 		roomDao.updateLastUpdateTime(room);
+	}
+
+	public AvRoom getRoomById(int roomId) {
+		return roomDao.queryById(roomId);
 	}
 
 }

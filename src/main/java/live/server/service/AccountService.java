@@ -1,6 +1,7 @@
 package live.server.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,7 +14,9 @@ import live.server.Util.CommonUtil;
 import live.server.Util.Constants;
 import live.server.Util.JsonUtil;
 import live.server.dao.AccountDao;
+import live.server.dao.CodeDao;
 import live.server.model.Account;
+import live.server.model.Code;
 import live.server.model.UserRole;
 import live.server.shell.ShellService;
 
@@ -29,6 +32,9 @@ public class AccountService {
 	
 	@Autowired
 	RoomService rService;
+	
+	@Autowired
+	CodeDao codeDao;
 	
 	public void exec(String cmd, String jsonStr, Map<String, Object> resultMap) {
 		if(cmd.equals("regist")) {
@@ -121,6 +127,10 @@ public class AccountService {
 		Account account = accountDao.queryById(id);
 		if(account == null) {
 			account = accountDao.queryByEmail(id);
+			
+			if(account == null) {
+				account = accountDao.queryByName(id);
+			}
 		}
 		
 		//账号验证
@@ -139,12 +149,12 @@ public class AccountService {
 			return;
 		}
 		
-		if(account.getCode_status() == 0) {
+		/*if(account.getCode_status() == 0) {
 			resultMap.put("errorCode", Constants.ERR_CODE_CHECK);
 			resultMap.put("errorInfo", "Please check the code");
 			log.error("Please check the code.");
 			return;
-		}
+		}*/
 		
 		//获取sig
 		String user_sig = account.getUser_sig();
@@ -229,6 +239,11 @@ public class AccountService {
 			name = String.valueOf(map.get("name"));
 		}
 		
+		String code = null;
+		if(map.get("code") != null) {
+			code = String.valueOf(map.get("code"));
+		}
+		
 		pwd = CommonUtil.sha256(pwd);
 		
 		Account account = accountDao.queryById(id);
@@ -247,6 +262,25 @@ public class AccountService {
 				resultMap.put("errorInfo", "Register user email existed.");
 				log.error("Register user email is exist. Email is " + email);
 				return;
+			}
+		}
+		
+		if(StringUtils.isNotBlank(code)) {
+			if(!"666666".equals(code)) {
+				Code queryCode = new Code();
+				queryCode.setCode_value(code);
+				queryCode.setExpired(CommonUtil.CODE_EXPIRED_0);
+				
+				List<Code> codeList = codeDao.query(queryCode);
+				if(codeList.size() == 0) {
+					resultMap.put("errorCode",Constants.ERR_CODE);
+					resultMap.put("errorInfo", "Code does not exist.");
+					return;
+				} else {
+					Code c = codeList.get(0);
+					c.setExpired(CommonUtil.CODE_EXPIRED_1);
+					codeDao.update(c);
+				}
 			}
 		}
 		

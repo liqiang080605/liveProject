@@ -8,10 +8,12 @@
 		<result property="aux_md5" column="aux_md5" />
 		<result property="main_md5" column="main_md5" />
 		<result property="last_update_time" column="last_update_time" />
+		<result property="name" column="name" />
+		<result property="subname" column="subname" />
 	</resultMap>
 
 	<sql id="base_column">
-		id, uid, aux_md5, main_md5, last_update_time
+		id, uid, aux_md5, main_md5, last_update_time, name, subname
 	</sql>
 	
 	<insert id="insert">
@@ -19,11 +21,15 @@
 		t_av_room(
 		<include refid="base_column" />
 		)
-		VALUES(NULL, #{uid}, #{aux_md5}, #{main_md5}, #{last_update_time})
+		VALUES(NULL, #{uid}, #{aux_md5}, #{main_md5}, #{last_update_time}, #{name}, #{subname})
 	</insert>
 	
 	<select id="queryByUid" resultMap="room">
 		select * from t_av_room where uid = #{uid}
+	</select>
+	
+	<select id="queryById" resultMap="room">
+		select * from t_av_room where id = #{id}
 	</select>
 	
 	<update id="update">
@@ -37,6 +43,12 @@
 		</if>
 		<if test="last_update_time != null and last_update_time != ''">
 			, last_update_time = #{last_update_time}
+		</if>
+		<if test="name != null and name != ''">
+			, name = #{name}
+		</if>
+		<if test="subname != null and subname != ''">
+			, subname = #{subname}
 		</if>
 		where id = #{id}
 	</update>

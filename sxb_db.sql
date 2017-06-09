@@ -243,3 +243,7 @@ alter table t_ppt add column status varchar(10) not null default '1' comment '�
 
 --2017/05/19
 alter table t_account add column name varchar(126) not null default '' comment '昵称';
+
+--2017/06/09
+alter table t_av_room add column name varchar(126) not null default '' comment '房間名稱';
+alter table t_av_room add column subname varchar(126) not null default '' comment '專家組名稱';

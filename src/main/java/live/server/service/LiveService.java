@@ -452,6 +452,13 @@ public class LiveService {
 		
 		for(NewLiveRecord nlr : list) {
 			Map<String, Object> roomMap = new HashMap<String, Object>();
+			int roomId = nlr.getAv_room_id();
+			AvRoom room = roomService.getRoomById(roomId);
+			
+			if(room != null) {
+				roomMap.put("name", room.getName());
+				roomMap.put("subname", room.getSubname());
+			}
 			roomMap.put("uid", nlr.getHost_uid());
 			
 			Map<String, Object> infoMap = new HashMap<String, Object>();
@@ -567,6 +574,8 @@ public class LiveService {
 		}
 		
 		String token = String.valueOf(map.get("token"));
+		String name = String.valueOf(map.get("name"));
+		String subname = String.valueOf(map.get("subname"));
 		
 		Account account = accountService.queryByToken(token);
 		if(account == null) {
@@ -595,7 +604,7 @@ public class LiveService {
 		}
 		
 		if(loadResult == 0) {
-			if(!roomService.create(account.getUid(), resultMap)) {
+			if(!roomService.create(account.getUid(), name, subname, resultMap)) {
 				resultMap.put("errorCode", Constants.ERR_SERVER);
 				resultMap.put("errorInfo", "Server internal error: create av room fail.");
 				return;
