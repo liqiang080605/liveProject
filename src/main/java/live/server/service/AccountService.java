@@ -36,6 +36,9 @@ public class AccountService {
 	@Autowired
 	CodeDao codeDao;
 	
+	@Autowired
+	NewLiveRecordService nliveRecordService;
+	
 	public void exec(String cmd, String jsonStr, Map<String, Object> resultMap) {
 		if(cmd.equals("regist")) {
 			register(jsonStr, resultMap);
@@ -73,6 +76,9 @@ public class AccountService {
 		
 		//退出所创建的房间
 		rService.exitByUid(account.getUid());
+		
+		//删除直播记录
+		nliveRecordService.deleteByHostUid(account.getUid());
 		
 		//退出账户
 		logout(account);
